@@ -4,6 +4,8 @@
 
 Deciding when to pit is an *optimal stopping* problem, the same maths banks use to price **American options**. Tyres lose pace every lap (time decay), safety cars arrive at random (jumps), and a pit stop has a fixed cost (the exercise price). BoxBox learns each track's tyre wear from real timing data, simulates the rest of a race thousands of times, and finds the best lap and tyre to pit on, plus when a safety car should change the plan.
 
+**▶ Live site: [box-box-sand.vercel.app](https://box-box-sand.vercel.app/)**: race replays, finishing odds, a pit-window slider and pit duels for every 2024 race.
+
 > Research project by Krishna Gupta. Not affiliated with Formula 1, the FIA or any team. Data from [OpenF1](https://openf1.org), free and with no login. Nothing here is for betting.
 
 ## Headline results
@@ -20,7 +22,7 @@ All tests are walk-forward: models only see the past (earlier laps of the race, 
 
 The pit-engine gain is measured inside BoxBox's own simulator; see [Limitations](#limitations).
 
-**Website:** an interactive version (race replays, finishing odds, a pit-window slider, duel heatmaps) lives in [`site/`](site/); see [Website](#website).
+**Website:** [box-box-sand.vercel.app](https://box-box-sand.vercel.app/), built from [`site/`](site/); see [Website](#website).
 
 ## Contents
 
@@ -334,7 +336,7 @@ results/                 outputs of the three tests
 
 ## Website
 
-`site/` is a static React + Vite app; everything it shows is pre-computed by `scripts/export_site.py` into `site/public/data/`:
+Live at **https://box-box-sand.vercel.app/** (Vercel, redeploys on every push to `main`). `site/` is a static React + Vite app; everything it shows is pre-computed by `scripts/export_site.py` into `site/public/data/`:
 
 - **Race replay:** lap-by-lap timing tower, gap chart with safety-car periods, tyre strategy bars.
 - **Finishing odds:** win / podium / points chances from 1/3, 1/2 and 2/3 distance, next to the real result.
