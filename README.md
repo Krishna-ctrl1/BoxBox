@@ -19,9 +19,10 @@ Deciding when to pit is an *optimal stopping* problem: the same maths banks use 
 | 3 | Optimal pit engine: Least-Squares Monte Carlo (Longstaff–Schwartz), plan + safety-car rule, option value | ✅ |
 | 3 | Rivals respond: the car ahead covers an undercut at the rate measured from 2023 (+22%) | ✅ |
 | 3 | Backtest vs real 2024 team calls, rivals covering: +0.47 places per decision in our simulator; same tyre 89% | ✅ |
-| 3 | Undercut / overcut as a two-player game | ⏳ |
-| 4 | Season backtest: positions gained vs the teams' real calls | ⏳ |
+| 3 | Full two-player game: both teams optimise against each other (Nash equilibrium); today rivals react at historical rates | ⏳ |
+| 4 | Season backtest: positions gained vs the teams' real calls (115 decisions, 18 races; see phase 3 results) | ✅ |
 | 5 | Website: race replay, pit windows, what-if sliders | ⏳ |
+| 6 | Research paper write-up | ⏳ |
 
 ## The lap-time model
 
