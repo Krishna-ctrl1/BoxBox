@@ -20,7 +20,7 @@ simulator, so it measures "better under our model of the race", not proof
 that a team was wrong. Teams also see things we can't (tyre temperatures,
 damage, radio). Agreement with the teams is itself a sanity check.
 
-Usage:  python scripts/backtest_strategy.py 2024 [--n 800]
+Usage:  python scripts/backtest_strategy.py 2024 [--n 800] [--no-response]
 """
 
 from __future__ import annotations
@@ -48,6 +48,7 @@ def main():
     ap.add_argument("year", type=int)
     ap.add_argument("--n", type=int, default=800)
     ap.add_argument("--frac", type=float, default=1 / 3)
+    ap.add_argument("--no-response", action="store_true", help="rivals never cover (the earlier, simpler model)")
     a = ap.parse_args()
     prior = season.load_priors(a.year - 1)
     params = hazards.load(str(a.year - 1))
@@ -75,13 +76,13 @@ def main():
             used = set(race.laps[(race.laps["driver"] == me.driver) & (race.laps["lap"] <= start)]["compound"].dropna())
             try:
                 adv = optimal_pit(cars, i, start, race.total_laps, model, track, used_compounds=used,
-                                  n_train=a.n, n_test=a.n, seed=SEED)
+                                  n_train=a.n, n_test=a.n, seed=SEED, rivals_respond=not a.no_response)
             except ValueError as e:
                 print(f"  skip {race.circuit} {me.code}: {e}")
                 continue
             # The team's real call, judged in the same fresh races with the same rival responses.
             team = simulate(cars, start, race.total_laps, model, track, n=a.n, seed=SEED + 1000,
-                            respond_to=i).finish[:, i]
+                            respond_to=None if a.no_response else i).finish[:, i]
             b = adv.best_fixed
             rows.append(dict(
                 circuit=race.circuit, code=me.code, pos_now=i + 1,
@@ -97,7 +98,8 @@ def main():
     df = pd.DataFrame(rows)
     out = Path(__file__).resolve().parents[1] / "results"
     out.mkdir(exist_ok=True)
-    df.to_csv(out / f"strategy_backtest_{a.year}.csv", index=False)
+    suffix = "_no_response" if a.no_response else ""
+    df.to_csv(out / f"strategy_backtest_{a.year}{suffix}.csv", index=False)
 
     stopped = df[df["bb_lap"].notna()]
     gain_fixed = df["team_pos"] - df["fixed_pos"]

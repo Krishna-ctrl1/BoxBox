@@ -23,6 +23,8 @@ def main() -> None:
     m.add_argument("race")
     m.add_argument("--from-lap", type=int, required=True, help="start from the end of this lap")
     m.add_argument("--n", type=int, default=2000, help="number of simulated races")
+    hz = sub.add_parser("hazards", help="learn safety-car, overtaking, DNF and tyre-life rates per track")
+    hz.add_argument("years", type=int, nargs="+", help="e.g. 2023, or 2023 2024")
     pt = sub.add_parser("pit", help="best pit lap and tyre for one driver, plus a safety-car rule")
     pt.add_argument("year", type=int)
     pt.add_argument("race")
@@ -30,6 +32,18 @@ def main() -> None:
     pt.add_argument("--from-lap", type=int, required=True)
     pt.add_argument("--n", type=int, default=1500)
     a = ap.parse_args()
+
+    if a.cmd == "hazards":
+        from . import hazards
+
+        p = hazards.estimate(a.years)
+        name = "_".join(str(y) for y in a.years)
+        path = hazards.save(p, name)
+        d = p["_default"]
+        print(f"Saved {len(p) - 1} tracks to {path}")
+        print(f"  season-wide: SC {d.sc_rate:.4f}/lap, VSC {d.vsc_rate:.4f}/lap, pass {d.pass_prob:.1%} of close battles, "
+              f"DNF {d.dnf_rate:.4f}/car/lap, pit loss {d.pit_loss:.1f} s")
+        return
 
     if a.cmd == "pit":
         from . import hazards, timing
