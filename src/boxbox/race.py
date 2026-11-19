@@ -115,6 +115,16 @@ def load_race(year: int, query: str, refresh: bool = False) -> Race:
     tyres = tyres.drop_duplicates(["driver", "lap"], keep="last")
     laps = laps.merge(tyres, on=["driver", "lap"], how="left")
 
+    # Some early-2023 races have no pit records in OpenF1. Every stop still shows
+    # up as a new tyre stint, so rebuild the stops from the stints.
+    if pits.empty:
+        derived = []
+        for d, g in stints.sort_values("stint_number").groupby("driver_number"):
+            for prev_end in g["lap_end"].iloc[:-1]:
+                if prev_end < total_laps:
+                    derived.append(dict(driver_number=d, lap_number=int(prev_end), lane_duration=np.nan, pit_duration=np.nan))
+        pits = pd.DataFrame(derived)
+
     # In-laps: OpenF1 records a pit stop on the lap the car entered the pit lane.
     laps["is_pit_in_lap"] = False
     if not pits.empty:

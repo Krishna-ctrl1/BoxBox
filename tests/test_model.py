@@ -47,7 +47,8 @@ def test_prediction_matches_truth():
     df, _ = synthetic_race(seed=2, noise=0.0)
     m = degradation.fit(df)
     pred = m.predict(df["driver"], df["lap"], df["compound"], df["tyre_age"])
-    assert np.abs(pred - df["lap_time"].to_numpy()).max() < 1e-6
+    # The weak built-in priors pull estimates very slightly, so allow a few hundredths.
+    assert np.abs(pred - df["lap_time"].to_numpy()).max() < 0.05
 
 
 def test_shrink_moves_noisy_estimates_more():
@@ -70,3 +71,16 @@ def test_safety_car_and_red_flag_parsing():
     assert ("RED", 8, 9) in n
     assert ("VSC", 18, 20) in n
     assert ("SC", 40, 50) in n  # never ended: runs to the flag
+
+
+def test_one_stint_per_driver_stays_sane():
+    """Monaco 2024 case: every driver runs a single compound all race.
+
+    Driver pace and tyre pace cannot be separated from the data alone; the
+    priors must keep predictions sensible instead of exploding.
+    """
+    df, _ = synthetic_race(seed=3)
+    df = df[df["lap"] <= 15]  # odd drivers on SOFT only, even drivers on MEDIUM only
+    m = degradation.fit(df, prior={"SOFT": (0.12, 0.03), "MEDIUM": (0.07, 0.03)})
+    pred = m.predict(df["driver"], df["lap"], df["compound"], df["tyre_age"])
+    assert np.abs(pred - df["lap_time"].to_numpy()).mean() < 0.4

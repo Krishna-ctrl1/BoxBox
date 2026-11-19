@@ -18,7 +18,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-import statsmodels.api as sm
+
 
 COMPOUND_ORDER = ["SOFT", "MEDIUM", "HARD"]
 
@@ -85,6 +85,38 @@ def _design(df: pd.DataFrame, compounds: list[str], reference: str, quadratic: b
     return X
 
 
+def _solve(X: pd.DataFrame, y: np.ndarray, priors: dict[str, tuple[float, float]], sigma: float) -> dict:
+    """Bayesian linear regression with Gaussian priors on some coefficients.
+
+    Each prior N(mean, sd) on coefficient j is added as one pseudo-observation:
+    a row that is (sigma/sd) in column j and (sigma/sd)*mean on the right-hand
+    side. Least squares on the augmented system gives exactly the posterior
+    mean, and every coefficient stays consistent with every other one.
+    """
+    cols = list(X.columns)
+    A, b = [X.to_numpy(dtype=float)], [y.astype(float)]
+    for name, (mean, sd) in priors.items():
+        if name in cols:
+            row = np.zeros(len(cols))
+            row[cols.index(name)] = sigma / sd
+            A.append(row[None, :])
+            b.append(np.array([mean * sigma / sd]))
+    A_aug, b_aug = np.vstack(A), np.concatenate(b)
+    beta, *_ = np.linalg.lstsq(A_aug, b_aug, rcond=None)
+    fitted = X.to_numpy(dtype=float) @ beta
+    resid = y - fitted
+    dof = max(len(y) - len(cols), 1)
+    s2 = float(resid @ resid) / dof
+    cov = s2 * np.linalg.pinv(A_aug.T @ A_aug)
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    return dict(
+        params=pd.Series(beta, index=cols),
+        se=pd.Series(np.sqrt(np.clip(np.diag(cov), 0, None)), index=cols),
+        sigma=np.sqrt(s2),
+        r2=1 - float(resid @ resid) / ss_tot if ss_tot > 0 else 0.0,
+    )
+
+
 def shrink(estimate: float, se: float, prior_mean: float, prior_sd: float) -> tuple[float, float]:
     """Empirical-Bayes shrinkage: blend a noisy race estimate with a season prior.
 
@@ -117,28 +149,41 @@ def fit(
     df = df[df["compound"].isin(compounds)]
     reference = "MEDIUM" if "MEDIUM" in compounds else compounds[0]
 
+    X_all = _design(df, compounds, reference, quadratic)
+    y_all = df["lap_time"].to_numpy()
+
+    # Weak "common sense" priors keep the fit solvable even when the data cannot
+    # separate driver pace from tyre pace (e.g. Monaco 2024: one stint each).
+    weak = {"lap": (-0.06, 0.1)}
+    for c in compounds:
+        weak[f"deg_{c}"] = (0.06, 0.1)
+        if c != reference:
+            weak[f"off_{c}"] = (0.0, 1.5)
+    season = dict(weak)
+    for c, (m, s) in (prior or {}).items():
+        if f"deg_{c}" in season:
+            season[f"deg_{c}"] = (m, s)
+
     keep = np.ones(len(df), dtype=bool)
-    for _ in range(3):  # robust refit: drop laps far from the fit, then refit
-        X = _design(df[keep], compounds, reference, quadratic)
-        res = sm.OLS(df.loc[keep, "lap_time"].to_numpy(), X).fit()
-        resid = df["lap_time"].to_numpy() - _design(df, compounds, reference, quadratic).reindex(
-            columns=X.columns, fill_value=0.0
-        ).to_numpy() @ res.params.to_numpy()
+    sigma = 0.5
+    for _ in range(4):  # robust refit: drop laps far from the fit, then refit
+        sol = _solve(X_all[keep], y_all[keep], season, sigma)
+        resid = y_all - X_all.to_numpy() @ sol["params"].to_numpy()
         mad = 1.4826 * np.median(np.abs(resid[keep] - np.median(resid[keep])))
+        sigma = max(float(np.std(resid[keep])), 0.05)
         new_keep = np.abs(resid) <= 3.5 * max(mad, 1e-3)
         if (new_keep == keep).all():
             break
         keep = new_keep
+    sol = _solve(X_all[keep], y_all[keep], season, sigma)
+    raw = _solve(X_all[keep], y_all[keep], weak, sigma) if prior else sol  # this race on its own
 
-    p, se = res.params, res.bse
+    p, se = sol["params"], sol["se"]
     drivers = {int(k[4:]): float(v) for k, v in p.items() if k.startswith("drv_")}
-    deg_raw = {c: float(p[f"deg_{c}"]) for c in compounds}
+    deg = {c: float(p[f"deg_{c}"]) for c in compounds}
     deg_se = {c: float(se[f"deg_{c}"]) for c in compounds}
-    deg = dict(deg_raw)
-    if prior:
-        for c in compounds:
-            if c in prior:
-                deg[c], deg_se[c] = shrink(deg_raw[c], deg_se[c], *prior[c])
+    deg_raw = {c: float(raw["params"][f"deg_{c}"]) for c in compounds}
+    res = sol
     return DegModel(
         driver_base=drivers,
         fuel_per_lap=float(p["lap"]),
@@ -147,8 +192,8 @@ def fit(
         deg_se=deg_se,
         deg_raw=deg_raw,
         deg2={c: (float(p[f"deg2_{c}"]) if quadratic else 0.0) for c in compounds},
-        sigma=float(np.sqrt(res.scale)),
-        r2=float(res.rsquared),
+        sigma=float(res["sigma"]),
+        r2=float(res["r2"]),
         n_laps=int(keep.sum()),
         n_dropped=int((~keep).sum()),
         reference=reference,

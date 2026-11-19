@@ -33,14 +33,20 @@ def get(endpoint: str, refresh: bool = False, **params: Any) -> list[dict]:
     if path.exists() and not refresh:
         return json.loads(path.read_text())
 
-    for attempt in range(6):
+    for attempt in range(10):
         wait = _MIN_GAP - (time.monotonic() - _last)
         if wait > 0:
             time.sleep(wait)
         _last = time.monotonic()
-        r = requests.get(f"{BASE}/{endpoint}", params=params, timeout=60)
+        try:
+            r = requests.get(f"{BASE}/{endpoint}", params=params, timeout=60)
+        except requests.RequestException:
+            time.sleep(3 * (attempt + 1))
+            continue
         if r.status_code == 429 or r.status_code >= 500:
-            time.sleep(2 * (attempt + 1))
+            # Respect the server's own "retry after" hint, else back off harder each time.
+            retry_after = r.headers.get("Retry-After")
+            time.sleep(float(retry_after) if retry_after and retry_after.isdigit() else 3 * (attempt + 1))
             continue
         if r.status_code == 404:
             data: list[dict] = []

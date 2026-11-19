@@ -43,6 +43,9 @@ class PitLoss:
 
 def estimate(race: Race, model: DegModel) -> PitLoss:
     laps = race.laps.set_index(["driver", "lap"])
+    # Typical lap time of cars NOT pitting on each lap: the yardstick under a safety car.
+    pitting = race.laps["is_pit_in_lap"] | race.laps["is_pit_out_lap"]
+    field_lap = race.laps[~pitting].groupby("lap")["lap_time"].median()
     rows = []
     for stop in race.pits.itertuples():
         d, in_lap = int(stop.driver), int(stop.lap)
@@ -51,9 +54,13 @@ def estimate(race: Race, model: DegModel) -> PitLoss:
         a, b = laps.loc[(d, in_lap)], laps.loc[(d, in_lap + 1)]
         if pd.isna(a.lap_time) or pd.isna(b.lap_time) or in_lap <= 1:
             continue
-        if a.compound not in model.deg or b.compound not in model.deg:
+        if a.neutral or b.neutral:
+            # Under SC/VSC everyone is slow: compare with the rest of the field on those laps.
+            expected = field_lap.get(in_lap, np.nan) + field_lap.get(in_lap + 1, np.nan)
+        elif a.compound not in model.deg or b.compound not in model.deg:
             continue
-        expected = model.predict([d, d], [in_lap, in_lap + 1], [a.compound, b.compound], [a.tyre_age, 1]).sum()
+        else:
+            expected = model.predict([d, d], [in_lap, in_lap + 1], [a.compound, b.compound], [a.tyre_age, 1]).sum()
         if np.isnan(expected):
             continue
         rows.append(
