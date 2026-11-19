@@ -16,7 +16,8 @@ Deciding when to pit is an *optimal stopping* problem: the same maths banks use 
 | 1 | Walk-forward validation vs baselines: 0.66 s/lap error vs 1.14 s baseline | ✅ |
 | 2 | Monte Carlo race simulator: safety cars/VSCs (Gamma-Poisson), overtaking (Beta-Binomial), DNFs, tyre-wear uncertainty | ✅ |
 | 2 | Simulator backtest: 1.57 places error vs 1.89, favourite wins 91% vs 79%, well calibrated | ✅ |
-| 3 | Optimal pit engine: Least-Squares Monte Carlo (Longstaff–Schwartz) | ⏳ |
+| 3 | Optimal pit engine: Least-Squares Monte Carlo (Longstaff–Schwartz), plan + safety-car rule, option value | ✅ |
+| 3 | Backtest vs real 2024 team calls: +0.49 places per decision in our simulator; same tyre 89% | ✅ |
 | 3 | Undercut / overcut as a two-player game | ⏳ |
 | 4 | Season backtest: positions gained vs the teams' real calls | ⏳ |
 | 5 | Website: race replay, pit windows, what-if sliders | ⏳ |
@@ -77,6 +78,40 @@ python -m boxbox simulate 2024 Bahrain --from-lap 20     # win / podium / points
 python scripts/backtest_sim.py 2024                       # the full backtest (about 5 seconds)
 ```
 
+## The pit engine (phase 3)
+
+Pitting is an **American option**: on any lap the team may "exercise" (box) or wait, knowing only what it can see right now. BoxBox solves it the way banks price American options, with **Least-Squares Monte Carlo (Longstaff–Schwartz)**:
+
+1. List every allowed stop: lap × tyre, respecting the two-compound rule and tyre life (95th-percentile stint length, per track where history exists).
+2. Simulate 1,500 training races. Replay **the same races** (common random numbers) with every possible stop, so each race has a known result for every choice.
+3. Pick the best fixed plan on the training races.
+4. **Backward induction** from the planned lap: on each lap, among races where a safety car or VSC is out, compare "box now" with "wait and follow the rule" (whose value comes from later laps). Box only if the gain is 1.5 standard errors clear of zero.
+5. Score the plan and the rule on **1,500 fresh races**, so they are not flattered by the luck they were fitted on.
+
+**Option value** = expected positions gained by the reacting rule over the best fixed plan.
+
+**A result worth knowing:** the textbook LSM, regressing on every visible feature on every lap, did *worse* than a fixed plan. On green-flag laps, pitting one lap earlier or later changes the result by ~0.02 places, below the regression noise, so the rule flipped at random. A safety car changes the cost of a stop by ~10 s: a signal strong enough to learn. So the decision state is "neutralised this lap or not".
+
+### Backtest vs the real teams (2024)
+
+At 1/3 distance in every dry 2024 race, each top-10 driver who really made one more stop: the team's real call vs BoxBox, on the same 800 fresh simulated races. Team stops made under a real safety car are excluded (the simulator would replay those laps as green and unfairly punish the team).
+
+| 115 decisions, 18 races | Expected finish |
+|---|---|
+| Team's real call | 6.79 |
+| BoxBox fixed plan | 6.44 |
+| **BoxBox plan + safety-car rule** | **6.30** |
+
+- BoxBox gains **+0.49 places per decision** (+0.35 from the plan, +0.15 from the safety-car rule); at least as good as the team in 94% of decisions.
+- Picks the **same tyre as the team 89%** of the time; median pit lap 4 laps from the team's; both pit a median 9 laps after the decision point.
+
+**Read this carefully.** "Better" here means *better inside BoxBox's simulator*. Rivals in the simulation keep their own strategies and do not respond to our stop, which flatters early stops (an undercut nobody covers). Teams also see things we cannot (tyre temperatures, damage, fuel, radio). Agreement on tyre choice and timing is the sanity check; the gain figure is an upper bound until rivals respond (next phase). Full output: [`results/strategy_backtest_2024.txt`](results/strategy_backtest_2024.txt).
+
+```bash
+python -m boxbox pit 2024 "Yas Marina" VER --from-lap 12   # best plan, pit window, safety-car rule, option value
+python scripts/backtest_strategy.py 2024                   # the full comparison with the teams (~10 min)
+```
+
 ## Quick start
 
 ```bash
@@ -101,9 +136,11 @@ src/boxbox/
   timing.py        running order, gaps and real strategies at any lap
   hazards.py       safety-car, overtaking and DNF rates per track
   simulate.py      vectorised Monte Carlo race simulator
+  strategy.py      optimal pit engine (Least-Squares Monte Carlo)
   __main__.py      command line
 scripts/validate.py      walk-forward test of the lap-time model
 scripts/backtest_sim.py  backtest of the race simulator
+scripts/backtest_strategy.py  BoxBox pit calls vs the real teams
 tests/               synthetic-race tests
 ```
 

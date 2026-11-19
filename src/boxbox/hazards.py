@@ -43,6 +43,7 @@ class TrackParams:
     sc_laps: list[int] = field(default_factory=list)  # observed SC lengths (laps)
     lap_time: float = 90.0  # typical clean lap (s)
     dnf_rate: float = 0.0006  # chance per car per lap of retiring
+    tyre_life: dict = field(default_factory=dict)  # longest stint seen per compound at this track (+2 laps)
 
 
 def _battles(race: Race) -> tuple[int, int]:
@@ -84,6 +85,8 @@ def _race_stats(race: Race) -> dict:
     m = degradation.fit(race.clean)
     pl = pitloss.estimate(race, m)
     dnf = int(race.results["dnf"].fillna(False).sum()) if not race.results.empty else 0
+    stints = race.laps.dropna(subset=["compound"]).groupby(["driver", "stint"]).agg(c=("compound", "first"), n=("lap", "count"))
+    longest = {c: int(g["n"].max()) for c, g in stints.groupby("c") if c in ("SOFT", "MEDIUM", "HARD")}
     return dict(
         circuit=race.circuit,
         laps=race.total_laps,
@@ -100,6 +103,7 @@ def _race_stats(race: Race) -> dict:
         lap_time=float(clean_med),
         dnf=dnf,
         car_laps=int(race.laps["lap"].count()),
+        longest=longest,
     )
 
 
@@ -148,6 +152,7 @@ def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
             sc_laps=[int(x) for xs in g["sc_lengths"] for x in xs] or [int(x) for x in all_sc],
             lap_time=float(g["lap_time"].median()),
             dnf_rate=float(dnf_rate),
+            tyre_life=_track_life(g),
         )
     out["_default"] = TrackParams(
         circuit="_default", races=len(df), sc_rate=float(sc_rate), vsc_rate=float(vsc_rate), pass_prob=float(pass_rate),
@@ -156,6 +161,15 @@ def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
         dnf_rate=float(dnf_rate),
     )
     return out
+
+
+def _track_life(g: pd.DataFrame) -> dict:
+    """Longest stint per compound seen at this track, plus a 2-lap allowance."""
+    life = {}
+    for d in g["longest"]:
+        for c, nlaps in d.items():
+            life[c] = max(life.get(c, 0), nlaps)
+    return {c: v + 2 for c, v in life.items()}
 
 
 def save(params: dict[str, TrackParams], name: str) -> Path:

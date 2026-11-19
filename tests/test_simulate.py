@@ -19,7 +19,7 @@ def model(bases):
 
 def track(**kw):
     p = dict(circuit="Test", races=1, sc_rate=0.0, vsc_rate=0.0, pass_prob=0.5, pit_loss=22.0, sc_pit_factor=0.55,
-             sc_pace_factor=1.4, vsc_pace_factor=1.35, sc_laps=[4], lap_time=90.0, dnf_rate=0.0)
+             sc_pace_factor=1.4, vsc_pace_factor=1.35, sc_laps=[4], lap_time=90.0, dnf_rate=0.0, tyre_life={})
     p.update(kw)
     return TrackParams(**p)
 

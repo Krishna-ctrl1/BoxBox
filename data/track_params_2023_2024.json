@@ -13,7 +13,12 @@
    3
   ],
   "lap_time": 101.23325,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 42,
+   "MEDIUM": 34,
+   "SOFT": 10
+  }
  },
  "Baku": {
   "circuit": "Baku",
@@ -29,7 +34,12 @@
    3
   ],
   "lap_time": 107.98275,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 52,
+   "MEDIUM": 22,
+   "SOFT": 4
+  }
  },
  "Catalunya": {
   "circuit": "Catalunya",
@@ -66,7 +76,12 @@
    3
   ],
   "lap_time": 80.178,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 36,
+   "MEDIUM": 34,
+   "SOFT": 27
+  }
  },
  "Hungaroring": {
   "circuit": "Hungaroring",
@@ -103,7 +118,12 @@
    3
   ],
   "lap_time": 84.47425,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 43,
+   "MEDIUM": 42,
+   "SOFT": 17
+  }
  },
  "Imola": {
   "circuit": "Imola",
@@ -140,7 +160,12 @@
    3
   ],
   "lap_time": 81.955,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 56,
+   "MEDIUM": 39,
+   "SOFT": 10
+  }
  },
  "Jeddah": {
   "circuit": "Jeddah",
@@ -157,7 +182,12 @@
    3
   ],
   "lap_time": 94.5955,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 51,
+   "MEDIUM": 43,
+   "SOFT": 18
+  }
  },
  "Las Vegas": {
   "circuit": "Las Vegas",
@@ -174,7 +204,12 @@
    3
   ],
   "lap_time": 98.53225,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 37,
+   "MEDIUM": 28,
+   "SOFT": 12
+  }
  },
  "Lusail": {
   "circuit": "Lusail",
@@ -193,7 +228,12 @@
    3
   ],
   "lap_time": 87.298,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 32,
+   "MEDIUM": 37,
+   "SOFT": 20
+  }
  },
  "Melbourne": {
   "circuit": "Melbourne",
@@ -211,7 +251,12 @@
    1
   ],
   "lap_time": 82.541,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 50,
+   "MEDIUM": 39,
+   "SOFT": 12
+  }
  },
  "Mexico City": {
   "circuit": "Mexico City",
@@ -228,7 +273,12 @@
    6
   ],
   "lap_time": 82.95325,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 51,
+   "MEDIUM": 41,
+   "SOFT": 13
+  }
  },
  "Miami": {
   "circuit": "Miami",
@@ -244,7 +294,12 @@
    5
   ],
   "lap_time": 92.883,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 56,
+   "MEDIUM": 37,
+   "SOFT": 31
+  }
  },
  "Monte Carlo": {
   "circuit": "Monte Carlo",
@@ -281,7 +336,12 @@
    3
   ],
   "lap_time": 79.385,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 80,
+   "MEDIUM": 80,
+   "SOFT": 31
+  }
  },
  "Montreal": {
   "circuit": "Montreal",
@@ -297,7 +357,12 @@
    5
   ],
   "lap_time": 77.401,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 70,
+   "MEDIUM": 40,
+   "SOFT": 11
+  }
  },
  "Monza": {
   "circuit": "Monza",
@@ -334,7 +399,12 @@
    3
   ],
   "lap_time": 85.91025,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 44,
+   "MEDIUM": 27,
+   "SOFT": 4
+  }
  },
  "Sakhir": {
   "circuit": "Sakhir",
@@ -371,7 +441,12 @@
    3
   ],
   "lap_time": 97.63775000000001,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 32,
+   "MEDIUM": 12,
+   "SOFT": 24
+  }
  },
  "Shanghai": {
   "circuit": "Shanghai",
@@ -388,7 +463,12 @@
    5
   ],
   "lap_time": 102.4085,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 41,
+   "MEDIUM": 31,
+   "SOFT": 22
+  }
  },
  "Silverstone": {
   "circuit": "Silverstone",
@@ -404,7 +484,12 @@
    6
   ],
   "lap_time": 93.437,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 34,
+   "MEDIUM": 35,
+   "SOFT": 30
+  }
  },
  "Singapore": {
   "circuit": "Singapore",
@@ -420,7 +505,12 @@
    3
   ],
   "lap_time": 99.46199999999999,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 51,
+   "MEDIUM": 44,
+   "SOFT": 30
+  }
  },
  "Spa-Francorchamps": {
   "circuit": "Spa-Francorchamps",
@@ -457,7 +547,12 @@
    3
   ],
   "lap_time": 109.04,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 36,
+   "MEDIUM": 26,
+   "SOFT": 10
+  }
  },
  "Suzuka": {
   "circuit": "Suzuka",
@@ -473,7 +568,12 @@
    4
   ],
   "lap_time": 97.9995,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 32,
+   "MEDIUM": 27,
+   "SOFT": 21
+  }
  },
  "Yas Marina Circuit": {
   "circuit": "Yas Marina Circuit",
@@ -510,7 +610,12 @@
    3
   ],
   "lap_time": 89.9475,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 47,
+   "MEDIUM": 31,
+   "SOFT": 27
+  }
  },
  "Zandvoort": {
   "circuit": "Zandvoort",
@@ -547,7 +652,12 @@
    3
   ],
   "lap_time": 76.304,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {
+   "HARD": 59,
+   "MEDIUM": 35,
+   "SOFT": 26
+  }
  },
  "_default": {
   "circuit": "_default",
@@ -584,6 +694,7 @@
    3
   ],
   "lap_time": 92.883,
-  "dnf_rate": 0.002263607367013067
+  "dnf_rate": 0.002263607367013067,
+  "tyre_life": {}
  }
 }

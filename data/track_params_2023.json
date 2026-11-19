@@ -25,7 +25,12 @@
    3
   ],
   "lap_time": 102.338,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 35,
+   "MEDIUM": 29,
+   "SOFT": 10
+  }
  },
  "Baku": {
   "circuit": "Baku",
@@ -41,7 +46,12 @@
    3
   ],
   "lap_time": 107.1155,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 52,
+   "MEDIUM": 18,
+   "SOFT": 4
+  }
  },
  "Catalunya": {
   "circuit": "Catalunya",
@@ -69,7 +79,12 @@
    3
   ],
   "lap_time": 80.178,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 36,
+   "MEDIUM": 34,
+   "SOFT": 27
+  }
  },
  "Hungaroring": {
   "circuit": "Hungaroring",
@@ -97,7 +112,12 @@
    3
   ],
   "lap_time": 84.572,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 40,
+   "MEDIUM": 42,
+   "SOFT": 17
+  }
  },
  "Jeddah": {
   "circuit": "Jeddah",
@@ -113,7 +133,12 @@
    3
   ],
   "lap_time": 95.13,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 51,
+   "MEDIUM": 34,
+   "SOFT": 18
+  }
  },
  "Las Vegas": {
   "circuit": "Las Vegas",
@@ -130,7 +155,12 @@
    3
   ],
   "lap_time": 98.64250000000001,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 37,
+   "MEDIUM": 28,
+   "SOFT": 12
+  }
  },
  "Lusail": {
   "circuit": "Lusail",
@@ -146,7 +176,12 @@
    4
   ],
   "lap_time": 88.206,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 20,
+   "MEDIUM": 20,
+   "SOFT": 9
+  }
  },
  "Melbourne": {
   "circuit": "Melbourne",
@@ -164,7 +199,12 @@
    1
   ],
   "lap_time": 82.473,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 50,
+   "MEDIUM": 39,
+   "SOFT": 12
+  }
  },
  "Mexico City": {
   "circuit": "Mexico City",
@@ -180,7 +220,12 @@
    1
   ],
   "lap_time": 83.926,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 39,
+   "MEDIUM": 39,
+   "SOFT": 13
+  }
  },
  "Miami": {
   "circuit": "Miami",
@@ -208,7 +253,12 @@
    3
   ],
   "lap_time": 92.768,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 56,
+   "MEDIUM": 28,
+   "SOFT": 7
+  }
  },
  "Montreal": {
   "circuit": "Montreal",
@@ -224,7 +274,12 @@
    5
   ],
   "lap_time": 77.401,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 70,
+   "MEDIUM": 40,
+   "SOFT": 11
+  }
  },
  "Monza": {
   "circuit": "Monza",
@@ -252,7 +307,11 @@
    3
   ],
   "lap_time": 86.9625,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 38,
+   "MEDIUM": 27
+  }
  },
  "Sakhir": {
   "circuit": "Sakhir",
@@ -280,7 +339,12 @@
    3
   ],
   "lap_time": 98.39,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 31,
+   "MEDIUM": 12,
+   "SOFT": 24
+  }
  },
  "Silverstone": {
   "circuit": "Silverstone",
@@ -296,7 +360,12 @@
    6
   ],
   "lap_time": 93.437,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 34,
+   "MEDIUM": 35,
+   "SOFT": 30
+  }
  },
  "Singapore": {
   "circuit": "Singapore",
@@ -312,7 +381,12 @@
    3
   ],
   "lap_time": 100.398,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 44,
+   "MEDIUM": 44,
+   "SOFT": 22
+  }
  },
  "Suzuka": {
   "circuit": "Suzuka",
@@ -328,7 +402,12 @@
    4
   ],
   "lap_time": 98.579,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 31,
+   "MEDIUM": 26,
+   "SOFT": 21
+  }
  },
  "Yas Marina Circuit": {
   "circuit": "Yas Marina Circuit",
@@ -356,7 +435,12 @@
    3
   ],
   "lap_time": 90.245,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {
+   "HARD": 45,
+   "MEDIUM": 30,
+   "SOFT": 3
+  }
  },
  "_default": {
   "circuit": "_default",
@@ -384,6 +468,7 @@
    3
   ],
   "lap_time": 92.768,
-  "dnf_rate": 0.0025634033269702756
+  "dnf_rate": 0.0025634033269702756,
+  "tyre_life": {}
  }
 }

@@ -23,7 +23,47 @@ def main() -> None:
     m.add_argument("race")
     m.add_argument("--from-lap", type=int, required=True, help="start from the end of this lap")
     m.add_argument("--n", type=int, default=2000, help="number of simulated races")
+    pt = sub.add_parser("pit", help="best pit lap and tyre for one driver, plus a safety-car rule")
+    pt.add_argument("year", type=int)
+    pt.add_argument("race")
+    pt.add_argument("driver", help="three-letter code, e.g. VER")
+    pt.add_argument("--from-lap", type=int, required=True)
+    pt.add_argument("--n", type=int, default=1500)
     a = ap.parse_args()
+
+    if a.cmd == "pit":
+        from . import hazards, timing
+        from .simulate import Car
+        from .strategy import optimal_pit
+
+        race = load_race(a.year, a.race)
+        try:
+            prior = season.load_priors(a.year - 1)
+            params = hazards.load(str(a.year - 1))
+        except FileNotFoundError:
+            prior, params = None, hazards.load("2023_2024")
+        m = degradation.fit(race.clean[race.clean["lap"] <= a.from_lap], prior=prior)
+        codes = dict(zip(race.drivers["driver"], race.drivers["code"]))
+        st = timing.state_at(race, a.from_lap)
+        cars = [
+            Car(int(r.driver), codes.get(int(r.driver), str(r.driver)), float(r.gap), r.compound, int(r.tyre_age),
+                timing.strategy_after(race, int(r.driver), a.from_lap))
+            for r in st.itertuples() if isinstance(r.compound, str)
+        ]
+        idx = [i for i, c in enumerate(cars) if c.code == a.driver.upper()]
+        if not idx:
+            raise SystemExit(f"{a.driver} is not running at lap {a.from_lap}. Running: {', '.join(c.code for c in cars)}")
+        i = idx[0]
+        used = set(race.laps[(race.laps["driver"] == cars[i].driver) & (race.laps["lap"] <= a.from_lap)]["compound"].dropna())
+        adv = optimal_pit(cars, i, a.from_lap, race.total_laps, m, hazards.for_track(params, race.circuit),
+                          used_compounds=used, n_train=a.n, n_test=a.n)
+        print(race)
+        print(f"{cars[i].code} is P{i + 1}, on {cars[i].compound.lower()}s aged {cars[i].tyre_age} laps. "
+              f"What the team really did next: {[(s.lap, s.compound) for s in cars[i].stops] or 'no more stops'}")
+        print(adv.summary())
+        print("\nTop fixed plans (fresh races):")
+        print(adv.fixed.head(6)[["lap", "compound", "exp_pos", "p_win", "p_podium", "p_points"]].round(3).to_string(index=False))
+        return
 
     if a.cmd == "fit":
         race = load_race(a.year, a.race)

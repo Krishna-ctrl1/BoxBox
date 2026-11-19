@@ -48,6 +48,7 @@ class SimResult:
     finish: np.ndarray  # (n_sims, n_cars) finishing position, 1-based; DNF = n_cars
     race_time: np.ndarray  # (n_sims, n_cars) seconds from start lap; inf = DNF
     sc_count: np.ndarray  # (n_sims,) safety cars per simulated race
+    features: dict | None = None  # per-lap state of one recorded car (see simulate(record=...))
 
     @property
     def n(self) -> int:
@@ -102,7 +103,19 @@ def simulate(
     seed: int | None = 0,
     events: bool = True,
     param_uncertainty: bool = True,
+    record: int | None = None,
 ) -> SimResult:
+    """Simulate the rest of a race n times.
+
+    record: index of one car whose state is saved at the end of every lap, before
+    any pit stop that lap: what a strategist could see when deciding "box or stay
+    out". Used by the pit engine (strategy.py).
+
+    The random draws are made in the same order whatever the cars' strategies,
+    so two calls with the same seed share every safety car, lap-time wobble and
+    retirement (common random numbers): differences between strategies are then
+    due to the strategy, not to luck.
+    """
     rng = np.random.default_rng(seed)
     k = len(cars)
     compounds = sorted({c.compound for c in cars} | {s.compound for c in cars for s in c.stops} | {"SOFT", "MEDIUM", "HARD"})
@@ -131,8 +144,12 @@ def simulate(
     sc_count = np.zeros(n, dtype=int)
     sc_lengths = np.array(track.sc_laps or [4])
     rows = np.arange(n)[:, None]
+    laps_range = list(range(start_lap + 1, total_laps + 1))
+    if record is not None:
+        L = len(laps_range)
+        feats = {k_: np.zeros((n, L)) for k_ in ("sc", "vsc", "pos", "gap_ahead", "gap_behind", "tyre_age", "alive")}
 
-    for lap in range(start_lap + 1, total_laps + 1):
+    for li, lap in enumerate(laps_range):
         # 1. Random events start at the beginning of a green lap.
         if events:
             green = (sc_left == 0) & (vsc_left == 0)
@@ -194,6 +211,22 @@ def simulate(
                 # Everyone closes up to the car ahead: the gap becomes a fixed train gap.
                 new_t[np.arange(n)[m], car[m]] = lead_t[m] + p * SC_TRAIN_GAP
 
+        # Strategist's view at the end of this lap (before the recorded car's own stop is applied).
+        if record is not None:
+            own_t = new_t[:, record] - (pitting[:, record] * np.where(neutral, track.pit_loss * track.sc_pit_factor, track.pit_loss))
+            others = np.where(alive, new_t, np.inf)
+            others[:, record] = np.inf
+            with np.errstate(invalid="ignore"):  # retired cars are inf: inf - inf is fine to drop
+                ahead = np.where(others <= own_t[:, None], own_t[:, None] - others, np.inf).min(axis=1)
+                behind = np.where(others > own_t[:, None], others - own_t[:, None], np.inf).min(axis=1)
+            feats["sc"][:, li] = under_sc
+            feats["vsc"][:, li] = under_vsc
+            feats["pos"][:, li] = 1 + (others <= own_t[:, None]).sum(axis=1)
+            feats["gap_ahead"][:, li] = np.minimum(ahead, 30.0)
+            feats["gap_behind"][:, li] = np.minimum(behind, 30.0)
+            feats["tyre_age"][:, li] = np.where(pitting[:, record], 0, age[:, record])
+            feats["alive"][:, li] = alive[:, record]
+
         # 6. Retirements.
         if events:
             dnf = alive & (rng.random((n, k)) < track.dnf_rate)
@@ -207,4 +240,9 @@ def simulate(
     order = np.argsort(t, axis=1, kind="stable")
     finish = np.empty_like(order)
     finish[rows, order] = np.arange(1, k + 1)[None, :]
-    return SimResult(codes=[c.code for c in cars], drivers=[c.driver for c in cars], finish=finish, race_time=t, sc_count=sc_count)
+    if record is not None:
+        feats["laps"] = np.array(laps_range)
+    return SimResult(
+        codes=[c.code for c in cars], drivers=[c.driver for c in cars], finish=finish, race_time=t, sc_count=sc_count,
+        features=feats if record is not None else None,
+    )
