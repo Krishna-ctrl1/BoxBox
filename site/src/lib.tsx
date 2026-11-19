@@ -61,7 +61,7 @@ export const pct = (x: number | null | undefined, d = 0) => (x == null ? '–' :
 export const fx = (x: number | null | undefined, d = 2) => (x == null ? '–' : x.toFixed(d))
 
 export function Panel({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-xl border border-line bg-panel ${className}`}>{children}</div>
+  return <div className={`rounded-sm border border-line bg-panel ${className}`}>{children}</div>
 }
 
 export function Label({ children }: { children: ReactNode }) {
@@ -71,7 +71,7 @@ export function Label({ children }: { children: ReactNode }) {
 export function Stat({ value, label, accent = false }: { value: ReactNode; label: ReactNode; accent?: boolean }) {
   return (
     <div className="flex flex-col gap-1">
-      <div className={`num text-2xl md:text-3xl font-medium ${accent ? 'text-amber' : 'text-ink'}`}>{value}</div>
+      <div className={`num text-2xl md:text-3xl font-medium ${accent ? 'text-accent' : 'text-ink'}`}>{value}</div>
       <div className="text-sm text-mute">{label}</div>
     </div>
   )
@@ -92,7 +92,7 @@ export function Failed({ error }: { error: string }) {
 
 export const axis = { stroke: 'var(--color-line)', tick: { fill: 'var(--color-mute)', fontSize: 11, fontFamily: 'var(--font-mono)' } }
 export const tooltipStyle = {
-  contentStyle: { background: '#0f1318', border: '1px solid var(--color-line)', borderRadius: 8, fontSize: 12 },
+  contentStyle: { background: '#121315', border: '1px solid var(--color-line)', borderRadius: 2, fontSize: 12, fontFamily: 'var(--font-mono)' },
   labelStyle: { color: 'var(--color-mute)' },
   itemStyle: { color: 'var(--color-ink)' },
 }

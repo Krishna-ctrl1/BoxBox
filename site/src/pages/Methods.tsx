@@ -49,7 +49,7 @@ export default function Methods() {
         {steps.map((s, i) => (
           <Panel key={s.title} className="grid gap-6 p-6 md:grid-cols-12">
             <div className="md:col-span-8">
-              <div className="num text-sm text-amber">Step {i + 1}</div>
+              <div className="num text-sm text-accent">Step {i + 1}</div>
               <h2 className="mt-1 font-display text-2xl font-bold">{s.title}</h2>
               <p className="mt-3 max-w-[70ch] leading-relaxed text-mute">{s.body}</p>
             </div>
@@ -77,7 +77,7 @@ export default function Methods() {
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         {assumed.map(([k, v]) => (
           <Panel key={k} className="p-5">
-            <div className={`font-semibold ${k === 'Assumed' ? 'text-amber' : 'text-good'}`}>{k}</div>
+            <div className={`font-semibold ${k === 'Assumed' ? 'text-accent' : 'text-good'}`}>{k}</div>
             <p className="mt-2 text-sm leading-relaxed text-mute">{v}</p>
           </Panel>
         ))}

@@ -40,7 +40,7 @@ export default function Results() {
                   <YAxis {...axis} width={36} unit="s" />
                   <Tooltip {...tooltipStyle} formatter={(x) => `${Number(x).toFixed(3)} s`} />
                   <Legend wrapperStyle={{ fontSize: 12, color: 'var(--color-mute)' }} />
-                  <Bar dataKey="model" name="BoxBox" fill="var(--color-amber)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="model" name="BoxBox" fill="var(--color-accent)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
                   <Bar dataKey="recent" name="Recent pace" fill="var(--color-dim)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
                 </BarChart>
               </ResponsiveContainer>
@@ -62,7 +62,7 @@ export default function Results() {
                 <ZAxis type="number" dataKey="n" range={[60, 400]} name="cases" />
                 <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke="var(--color-dim)" strokeDasharray="4 4" />
                 <Tooltip {...tooltipStyle} formatter={(x, name) => (name === 'cases' ? x : pct(Number(x), 1))} />
-                <Scatter data={data.calibration ?? []} fill="var(--color-amber)" isAnimationActive={false} />
+                <Scatter data={data.calibration ?? []} fill="var(--color-accent)" isAnimationActive={false} />
               </ScatterChart>
             </ResponsiveContainer>
           </div>

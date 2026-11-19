@@ -265,6 +265,7 @@ python scripts/backtest_strategy.py 2024       # pit engine vs the teams   (~10 
 python scripts/backtest_strategy.py 2024 --no-response   # same, rivals never cover (for comparison)
 python scripts/duels_2024.py 2024              # every close duel as a game  (~15 min)
 python scripts/export_site.py 2024 --jobs 6    # data for the website        (~30 min on 6 cores)
+python scripts/build_assets.py 2024            # GP names + GPS circuit maps (~2 min)
 pytest                                         # 20 offline tests
 ```
 
@@ -291,6 +292,7 @@ scripts/
   backtest_strategy.py   BoxBox's pit calls vs the real teams
   duels_2024.py          every close duel of a season as a game
   export_site.py         pre-computes the website's data
+  build_assets.py        Grand Prix names and GPS circuit maps for the website
 site/                    the website (React + Vite), reads site/public/data/
 tests/                   20 tests on hand-made races where the right answer is known
 data/                    season priors and track parameters (raw OpenF1 cache in data/raw/, not committed)
@@ -342,7 +344,9 @@ Live at **https://box-box-sand.vercel.app/** (Vercel, redeploys on every push to
 - **Finishing odds:** win / podium / points chances from 1/3, 1/2 and 2/3 distance, next to the real result.
 - **Pit window:** for each top-10 driver at 1/3 distance, expected finish for every pit lap and tyre, with a slider; BoxBox's plan, the safety-car rule and the team's real choice.
 - **Pit duels:** the payoff heatmap and both teams' equilibrium strategies.
-- **Method** and **Results** pages.
+- **Method**, **Results** and **Credits** pages.
+
+Design: a premium automotive editorial look (Space Grotesk, Inter, IBM Plex Mono; carbon, graphite, off-white, a restrained racing red). Every circuit map is drawn from the race winner's own GPS trace (`scripts/build_assets.py` → `site/public/assets/races-meta.json`, with official Grand Prix names from OpenF1). Photography is from Wikimedia Commons under Creative Commons licences, cropped and resized, and credited on the site's Credits page (`site/public/assets/photos/photos.json`).
 
 ```bash
 cd site && npm install && npm run dev     # http://localhost:5173

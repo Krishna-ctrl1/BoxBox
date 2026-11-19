@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
-/* Pit-wall timing screen: deliberately one dark look (like the real screens). */
+/* Luxury automotive editorial × race intelligence.
+   One deliberate dark look: carbon, graphite, off-white, a restrained racing red, metallic grey. */
 @theme {
-  --color-bg: #0b0d10;
-  --color-panel: #12161b;
-  --color-panel-2: #171c23;
-  --color-line: #232a33;
-  --color-ink: #e8edf1;
-  --color-mute: #8d98a5;
-  --color-dim: #5c6672;
-  --color-amber: #ffb020;
-  --color-good: #3ccf7a;
-  --color-bad: #ff5d5d;
-  --color-soft: #ff3b3b;
-  --color-medium: #ffd12e;
-  --color-hard: #e8e8e8;
-  --color-inter: #3ccf5a;
-  --color-wet: #3b8cff;
-  --color-sc: #ffb020;
-  --font-display: "Titillium Web", "Arial Narrow", system-ui, sans-serif;
+  --color-bg: #0a0a0b;          /* carbon black */
+  --color-panel: #121315;       /* graphite */
+  --color-panel-2: #1a1b1e;     /* lighter graphite */
+  --color-line: #26282c;
+  --color-ink: #f2efe9;         /* off-white */
+  --color-mute: #9b9da3;        /* metallic grey */
+  --color-dim: #63666c;
+  --color-accent: #c8252b;      /* restrained racing red */
+  --color-steel: #7f97ad;       /* cool counterpart for diverging scales */
+  --color-good: #4fb37a;
+  --color-bad: #e05a52;
+  --color-soft: #e8312f;
+  --color-medium: #f2c94c;
+  --color-hard: #ece9e3;
+  --color-inter: #3fae5a;
+  --color-wet: #3a7bd5;
+  --color-sc: #f0a830;          /* safety car: amber means something in F1 */
+  --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 
 :root { color-scheme: dark; }
@@ -32,17 +34,33 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
-::selection { background: var(--color-amber); color: var(--color-bg); }
-:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 2px; border-radius: 4px; }
+::selection { background: var(--color-accent); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; border-radius: 2px; }
 .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .wrap {
-  max-width: 1180px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
 }
-input[type="range"] { accent-color: var(--color-amber); }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-mute); }
+.display { font-family: var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+input[type="range"] { accent-color: var(--color-accent); }
 .scroll-x { overflow-x: auto; }
+
+/* Photography: a quiet tonal grade, not a filter effect. */
+.photo { object-fit: cover; width: 100%; height: 100%; display: block; filter: saturate(0.85) contrast(1.05); }
+.shade-left { background: linear-gradient(90deg, rgba(10,10,11,0.92) 0%, rgba(10,10,11,0.6) 42%, rgba(10,10,11,0.05) 75%); }
+.shade-bottom { background: linear-gradient(0deg, rgba(10,10,11,0.97) 0%, rgba(10,10,11,0.82) 22%, rgba(10,10,11,0.3) 50%, rgba(10,10,11,0) 75%); }
+/* Fine engineering grid behind circuit maps */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(242,239,233,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(242,239,233,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.rule { height: 1px; background: var(--color-line); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
