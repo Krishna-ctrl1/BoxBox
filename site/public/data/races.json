@@ -1,0 +1,245 @@
+{
+ "year": 2024,
+ "races": [
+  {
+   "slug": "sakhir",
+   "name": "Bahrain",
+   "circuit": "Sakhir",
+   "date": "2024-03-02",
+   "laps": 57,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "jeddah",
+   "name": "Saudi Arabia",
+   "circuit": "Jeddah",
+   "date": "2024-03-09",
+   "laps": 50,
+   "wet": false,
+   "sc": 1,
+   "vsc": 0
+  },
+  {
+   "slug": "melbourne",
+   "name": "Australia",
+   "circuit": "Melbourne",
+   "date": "2024-03-24",
+   "laps": 58,
+   "wet": false,
+   "sc": 0,
+   "vsc": 2
+  },
+  {
+   "slug": "suzuka",
+   "name": "Japan",
+   "circuit": "Suzuka",
+   "date": "2024-04-07",
+   "laps": 53,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "shanghai",
+   "name": "China",
+   "circuit": "Shanghai",
+   "date": "2024-04-21",
+   "laps": 56,
+   "wet": false,
+   "sc": 2,
+   "vsc": 1
+  },
+  {
+   "slug": "miami",
+   "name": "United States",
+   "circuit": "Miami",
+   "date": "2024-05-05",
+   "laps": 58,
+   "wet": false,
+   "sc": 1,
+   "vsc": 1
+  },
+  {
+   "slug": "imola",
+   "name": "Italy",
+   "circuit": "Imola",
+   "date": "2024-05-19",
+   "laps": 63,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "monte-carlo",
+   "name": "Monaco",
+   "circuit": "Monte Carlo",
+   "date": "2024-05-26",
+   "laps": 78,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "montreal",
+   "name": "Canada",
+   "circuit": "Montreal",
+   "date": "2024-06-09",
+   "laps": 70,
+   "wet": true,
+   "sc": 2,
+   "vsc": 0
+  },
+  {
+   "slug": "catalunya",
+   "name": "Spain",
+   "circuit": "Catalunya",
+   "date": "2024-06-23",
+   "laps": 66,
+   "wet": true,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "spielberg",
+   "name": "Austria",
+   "circuit": "Spielberg",
+   "date": "2024-06-30",
+   "laps": 72,
+   "wet": true,
+   "sc": 0,
+   "vsc": 1
+  },
+  {
+   "slug": "silverstone",
+   "name": "United Kingdom",
+   "circuit": "Silverstone",
+   "date": "2024-07-07",
+   "laps": 52,
+   "wet": true,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "hungaroring",
+   "name": "Hungary",
+   "circuit": "Hungaroring",
+   "date": "2024-07-21",
+   "laps": 70,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "spa-francorchamps",
+   "name": "Belgium",
+   "circuit": "Spa-Francorchamps",
+   "date": "2024-07-28",
+   "laps": 44,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "zandvoort",
+   "name": "Netherlands",
+   "circuit": "Zandvoort",
+   "date": "2024-08-25",
+   "laps": 72,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "monza",
+   "name": "Italy",
+   "circuit": "Monza",
+   "date": "2024-09-01",
+   "laps": 53,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "baku",
+   "name": "Azerbaijan",
+   "circuit": "Baku",
+   "date": "2024-09-15",
+   "laps": 51,
+   "wet": false,
+   "sc": 0,
+   "vsc": 1
+  },
+  {
+   "slug": "singapore",
+   "name": "Singapore",
+   "circuit": "Singapore",
+   "date": "2024-09-22",
+   "laps": 62,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "austin",
+   "name": "United States",
+   "circuit": "Austin",
+   "date": "2024-10-20",
+   "laps": 56,
+   "wet": false,
+   "sc": 1,
+   "vsc": 0
+  },
+  {
+   "slug": "mexico-city",
+   "name": "Mexico",
+   "circuit": "Mexico City",
+   "date": "2024-10-27",
+   "laps": 71,
+   "wet": false,
+   "sc": 1,
+   "vsc": 0
+  },
+  {
+   "slug": "interlagos",
+   "name": "Brazil",
+   "circuit": "Interlagos",
+   "date": "2024-11-03",
+   "laps": 69,
+   "wet": true,
+   "sc": 2,
+   "vsc": 1
+  },
+  {
+   "slug": "las-vegas",
+   "name": "United States",
+   "circuit": "Las Vegas",
+   "date": "2024-11-24",
+   "laps": 50,
+   "wet": false,
+   "sc": 0,
+   "vsc": 0
+  },
+  {
+   "slug": "lusail",
+   "name": "Qatar",
+   "circuit": "Lusail",
+   "date": "2024-12-01",
+   "laps": 57,
+   "wet": false,
+   "sc": 3,
+   "vsc": 1
+  },
+  {
+   "slug": "yas-marina-circuit",
+   "name": "United Arab Emirates",
+   "circuit": "Yas Marina Circuit",
+   "date": "2024-12-08",
+   "laps": 58,
+   "wet": false,
+   "sc": 0,
+   "vsc": 1
+  }
+ ]
+}

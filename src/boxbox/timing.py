@@ -28,6 +28,8 @@ def state_at(race: Race, lap: int) -> pd.DataFrame:
     C = crossings(race)
     last = C[C["lap"] <= lap].sort_values("lap").groupby("driver").tail(1)
     last = last.sort_values(["lap", "cross"], ascending=[False, True]).reset_index(drop=True)
+    if last.empty:  # e.g. Monaco 2024: red flag on lap 1, nobody completed it
+        return pd.DataFrame(columns=["position", "driver", "lap", "gap", "compound", "tyre_age", "stint", "laps_down"])
     leader = last.iloc[0]
     # Gap to leader: same-lap cars by crossing time; lapped cars get a lap-time penalty per lap down.
     lap_len = race.clean["lap_time"].median() if len(race.clean) else 90.0

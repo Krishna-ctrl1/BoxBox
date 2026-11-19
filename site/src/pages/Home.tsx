@@ -1,8 +1,22 @@
 import { Failed, Label, Loading, Panel, Stat, useJson } from '../lib'
-import type { RaceEntry } from '../types'
+import type { RaceEntry, Results } from '../types'
+
+const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN)
 
 export default function Home() {
   const { data, error } = useJson<{ year: number; races: RaceEntry[] }>('/data/races.json')
+  const { data: res } = useJson<Results>('/data/results.json')
+  const v = res?.validation ?? []
+  const w = v.reduce((a, r) => a + r.n, 0)
+  const lapErr = w ? v.reduce((a, r) => a + r.model * r.n, 0) / w : NaN
+  const lapBase = w ? v.reduce((a, r) => a + r.recent * r.n, 0) / w : NaN
+  const sb = res?.sim_backtest ?? []
+  const fav = avg(sb.map((r) => Number(r.model_top_pick_won)))
+  const lead = avg(sb.map((r) => Number(r.leader_won)))
+  const st = res?.strategy ?? []
+  const gain = avg(st.map((r) => r.team_pos - r.rule_pos))
+  const same = avg(st.filter((r) => r.bb_lap != null).map((r) => Number(r.bb_tyre === r.team_tyre)))
+  const show = (x: number, f: (x: number) => string) => (Number.isFinite(x) ? f(x) : '…')
   return (
     <>
       <section className="border-b border-line">
@@ -29,10 +43,10 @@ export default function Home() {
           <Panel className="p-6 md:col-span-5 md:self-end">
             <Label>Tested on 2024, trained only on the past</Label>
             <div className="mt-5 grid grid-cols-2 gap-6">
-              <Stat value="0.66 s" label="lap-time error (baseline 1.14 s)" accent />
-              <Stat value="93%" label="favourite won from mid-race (leader: 79%)" />
-              <Stat value="+0.47" label="places per pit call vs the real teams*" accent />
-              <Stat value="89%" label="same tyre choice as the teams" />
+              <Stat value={show(lapErr, (x) => `${x.toFixed(2)} s`)} label={`lap-time error (baseline ${show(lapBase, (x) => `${x.toFixed(2)} s`)})`} accent />
+              <Stat value={show(fav, (x) => `${Math.round(x * 100)}%`)} label={`simulator’s favourite won (race leader at that point: ${show(lead, (x) => `${Math.round(x * 100)}%`)})`} />
+              <Stat value={show(gain, (x) => `+${x.toFixed(2)}`)} label="places per pit call vs the real teams*" accent />
+              <Stat value={show(same, (x) => `${Math.round(x * 100)}%`)} label="same tyre choice as the teams" />
             </div>
             <p className="mt-5 text-xs text-dim">* inside BoxBox’s own simulator; see Results for what that means.</p>
           </Panel>

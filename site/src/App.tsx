@@ -10,7 +10,7 @@ function Nav({ hash }: { hash: string }) {
   const link = (href: string, label: string) => {
     const on = hash === href || (href !== '#/' && hash.startsWith(href))
     return (
-      <a href={href} className={`rounded-md px-3 py-1.5 text-sm transition ${on ? 'bg-panel-2 text-ink' : 'text-mute hover:text-ink'}`}>
+      <a href={href} className={`whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm transition ${on ? 'bg-panel-2 text-ink' : 'text-mute hover:text-ink'}`}>
         {label}
       </a>
     )
@@ -27,9 +27,9 @@ function Nav({ hash }: { hash: string }) {
         </a>
         <nav className="flex items-center gap-1 overflow-x-auto">
           {link('#/', 'Races')}
-          {link('#/methods', 'How it works')}
+          {link('#/methods', 'Method')}
           {link('#/results', 'Results')}
-          <a href={GITHUB} target="_blank" rel="noreferrer" className="ml-1 rounded-md px-3 py-1.5 text-sm text-mute hover:text-ink">
+          <a href={GITHUB} target="_blank" rel="noreferrer" className="ml-1 hidden whitespace-nowrap rounded-md px-3 py-1.5 text-sm text-mute hover:text-ink sm:inline">
             GitHub ↗
           </a>
         </nav>

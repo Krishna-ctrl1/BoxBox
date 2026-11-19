@@ -16,7 +16,7 @@ const steps = [
   {
     title: 'Price the pit stop like an American option',
     body: 'Every possible pit lap and tyre is replayed on the same simulated races (common random numbers). The best fixed plan is chosen on one set of races; then, working backwards lap by lap (Least-Squares Monte Carlo, Longstaff–Schwartz 2001), BoxBox learns when a safety car should trigger an early stop. Everything is scored on a fresh set of races.',
-    stat: '+0.13',
+    stat: '+0.10',
     statLabel: 'places from reacting to safety cars alone: the option value',
   },
   {

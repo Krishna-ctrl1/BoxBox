@@ -81,10 +81,16 @@ def main():
     sessions = [s for s in openf1.season_races(a.year) if not a.only or a.only.lower() in s["circuit_short_name"].lower()]
     from concurrent.futures import ProcessPoolExecutor
     with ProcessPoolExecutor(max_workers=a.jobs) as pool:
-        index = list(pool.map(export_race, [(a.year, s, a.n, str(out)) for s in sessions]))
-    if not a.only:
-        (out / "races.json").write_text(json.dumps(dict(year=a.year, races=index), indent=1))
-        export_results(out, a.year)
+        list(pool.map(export_race, [(a.year, s, a.n, str(out)) for s in sessions]))
+    write_index(out, a.year)
+    export_results(out, a.year)
+
+
+def write_index(out: Path, year: int):
+    """races.json from every race file on disk, in calendar order."""
+    keys = ["slug", "name", "circuit", "date", "laps", "wet", "sc", "vsc"]
+    races = [{k: json.loads(p.read_text())[k] for k in keys} for p in (out / "races").glob("*.json")]
+    (out / "races.json").write_text(json.dumps(dict(year=year, races=sorted(races, key=lambda r: r["date"])), indent=1))
 
 
 def export_race(job):

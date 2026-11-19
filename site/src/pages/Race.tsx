@@ -23,7 +23,7 @@ export default function Race({ slug }: { slug: string }) {
       <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
         <div>
           <Label>{data.date} · {data.circuit}</Label>
-          <h1 className="mt-2 font-display text-4xl font-bold md:text-5xl">{data.name} Grand Prix</h1>
+          <h1 className="mt-2 font-display text-4xl font-bold md:text-5xl">{data.name} {data.date.slice(0, 4)}</h1>
         </div>
         <div className="flex flex-wrap gap-6">
           <Stat value={data.laps} label="laps" />
@@ -133,7 +133,7 @@ function Replay({ race }: { race: RaceDoc }) {
                 {race.replay.neutral.map((nn, i) => (
                   <ReferenceArea key={i} x1={nn.start} x2={nn.end} fill="var(--color-sc)" fillOpacity={0.12} />
                 ))}
-                <XAxis dataKey="lap" {...axis} />
+                <XAxis dataKey="lap" {...axis} interval="preserveStartEnd" minTickGap={28} />
                 <YAxis reversed {...axis} width={36} domain={[0, 'auto']} />
                 <Tooltip {...tooltipStyle} formatter={(v) => `+${Number(v).toFixed(1)} s`} labelFormatter={(l) => `Lap ${l}`} />
                 <ReferenceLine x={lap} stroke="var(--color-amber)" strokeDasharray="3 3" />
@@ -323,7 +323,7 @@ function PitWindow({ race }: { race: RaceDoc }) {
             <LineChart data={chart} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
               <CartesianGrid stroke="var(--color-line)" strokeDasharray="2 4" vertical={false} />
               {ruleLaps.length > 0 && <ReferenceArea x1={Math.min(...ruleLaps)} x2={Math.max(...ruleLaps)} fill="var(--color-sc)" fillOpacity={0.1} />}
-              <XAxis dataKey="lap" {...axis} />
+              <XAxis dataKey="lap" {...axis} interval="preserveStartEnd" minTickGap={28} />
               <YAxis reversed {...axis} width={36} domain={['auto', 'auto']} tickFormatter={(v) => `P${Number(v).toFixed(1)}`} />
               <Tooltip {...tooltipStyle} formatter={(v, name) => [`P${Number(v).toFixed(2)}`, TYRE[String(name)]?.name ?? String(name)]} labelFormatter={(l) => `Pit lap ${l}`} />
               {real && <ReferenceLine x={real.lap} stroke="var(--color-mute)" strokeDasharray="4 4" label={{ value: 'team', fill: 'var(--color-mute)', fontSize: 11, position: 'top' }} />}

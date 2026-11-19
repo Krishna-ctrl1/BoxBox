@@ -15,7 +15,7 @@ export default function Results() {
   const wavg = (k: 'model' | 'recent') => v.reduce((a, r) => a + r[k] * r.n, 0) / Math.max(w, 1)
   const st = data.strategy ?? []
   const gain = st.map((r) => r.team_pos - r.rule_pos)
-  const sameTyre = st.filter((r) => r.bb_tyre).map((r) => r.bb_tyre === r.team_tyre)
+  const sameTyre = st.filter((r) => r.bb_lap != null).map((r) => r.bb_tyre === r.team_tyre)
   const du = data.duels ?? []
   return (
     <div className="wrap py-12">
@@ -40,8 +40,8 @@ export default function Results() {
                   <YAxis {...axis} width={36} unit="s" />
                   <Tooltip {...tooltipStyle} formatter={(x) => `${Number(x).toFixed(3)} s`} />
                   <Legend wrapperStyle={{ fontSize: 12, color: 'var(--color-mute)' }} />
-                  <Bar dataKey="model" name="BoxBox" fill="var(--color-amber)" radius={[3, 3, 0, 0]} />
-                  <Bar dataKey="recent" name="Recent pace" fill="var(--color-dim)" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="model" name="BoxBox" fill="var(--color-amber)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="recent" name="Recent pace" fill="var(--color-dim)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -62,7 +62,7 @@ export default function Results() {
                 <ZAxis type="number" dataKey="n" range={[60, 400]} name="cases" />
                 <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke="var(--color-dim)" strokeDasharray="4 4" />
                 <Tooltip {...tooltipStyle} formatter={(x, name) => (name === 'cases' ? x : pct(Number(x), 1))} />
-                <Scatter data={data.calibration ?? []} fill="var(--color-amber)" />
+                <Scatter data={data.calibration ?? []} fill="var(--color-amber)" isAnimationActive={false} />
               </ScatterChart>
             </ResponsiveContainer>
           </div>
