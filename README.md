@@ -24,6 +24,8 @@ The pit-engine gain is measured inside BoxBox's own simulator; see [Limitations]
 
 **Website:** [box-box-sand.vercel.app](https://box-box-sand.vercel.app/), built from [`site/`](site/); see [Website](#website).
 
+**Study guide:** a full write-up of what was built, why, every technique and every design decision: [`docs/BOXBOX_STUDY_GUIDE.md`](docs/BOXBOX_STUDY_GUIDE.md).
+
 ## Contents
 
 - [Quick start](#quick-start)
