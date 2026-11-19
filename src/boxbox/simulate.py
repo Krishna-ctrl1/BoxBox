@@ -1,0 +1,210 @@
+"""Monte Carlo race simulator.
+
+Starting from the real state of a race at some lap, simulate the rest of the
+race thousands of times at once. Each simulated race gets its own random draws:
+
+  - lap-time noise for every car (the model's residual spread)
+  - tyre-wear rates drawn from the model's uncertainty (parameter risk)
+  - safety cars and VSCs as a Poisson process with the track's rates
+  - close battles: the faster car behind only gets past with the track's pass chance
+  - retirements (DNFs) at the field's per-lap rate
+
+Everything is vectorised: arrays are (simulations x cars), so 2,000 races of
+20 cars take well under a second.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+import numpy as np
+import pandas as pd
+
+from .degradation import DegModel
+from .hazards import TrackParams
+from .timing import Stop
+
+FOLLOW_GAP = 0.35  # s: how close a car can follow when it cannot pass
+SC_TRAIN_GAP = 0.8  # s between cars after the field bunches up behind the SC
+PASS_BOOST = 2.0  # pass chance when the car behind is genuinely faster, vs any close battle
+TYPICAL_OFFSET = {"SOFT": -0.6, "MEDIUM": 0.0, "HARD": 0.45}  # used only for compounds a race hasn't shown yet
+TYPICAL_DEG = {"SOFT": 0.10, "MEDIUM": 0.06, "HARD": 0.045}
+
+
+@dataclass
+class Car:
+    driver: int
+    code: str
+    gap: float  # seconds behind the leader at the start lap
+    compound: str
+    tyre_age: int
+    stops: list[Stop] = field(default_factory=list)  # planned stops for the rest of the race
+
+
+@dataclass
+class SimResult:
+    codes: list[str]
+    drivers: list[int]
+    finish: np.ndarray  # (n_sims, n_cars) finishing position, 1-based; DNF = n_cars
+    race_time: np.ndarray  # (n_sims, n_cars) seconds from start lap; inf = DNF
+    sc_count: np.ndarray  # (n_sims,) safety cars per simulated race
+
+    @property
+    def n(self) -> int:
+        return self.finish.shape[0]
+
+    def table(self) -> pd.DataFrame:
+        f = self.finish
+        k = f.shape[1]
+        dnf = np.isinf(self.race_time)
+        return (
+            pd.DataFrame(
+                {
+                    "code": self.codes,
+                    "driver": self.drivers,
+                    "exp_pos": f.mean(axis=0),
+                    "p_win": (f == 1).mean(axis=0),
+                    "p_podium": (f <= 3).mean(axis=0),
+                    "p_points": (f <= 10).mean(axis=0),
+                    "p_dnf": dnf.mean(axis=0),
+                    "pos_p10": np.percentile(f, 10, axis=0),
+                    "pos_p90": np.percentile(f, 90, axis=0),
+                }
+            )
+            .sort_values("exp_pos")
+            .reset_index(drop=True)
+            .assign(rank=lambda d: np.arange(1, len(d) + 1))
+            .loc[:, lambda d: ["rank"] + [c for c in d.columns if c != "rank"]]
+            .head(k)
+        )
+
+
+def _compound_params(model: DegModel, compounds: list[str]):
+    """Offset and wear for every compound, filling unseen ones with typical values."""
+    ref_typ = TYPICAL_OFFSET.get(model.reference, 0.0)
+    off, deg, se = {}, {}, {}
+    for c in compounds:
+        if c in model.deg:
+            off[c], deg[c], se[c] = model.compound_offset[c], model.deg[c], model.deg_se[c]
+        else:
+            off[c] = TYPICAL_OFFSET.get(c, 0.0) - ref_typ
+            deg[c], se[c] = TYPICAL_DEG.get(c, 0.06), 0.03
+    return off, deg, se
+
+
+def simulate(
+    cars: list[Car],
+    start_lap: int,
+    total_laps: int,
+    model: DegModel,
+    track: TrackParams,
+    n: int = 2000,
+    seed: int | None = 0,
+    events: bool = True,
+    param_uncertainty: bool = True,
+) -> SimResult:
+    rng = np.random.default_rng(seed)
+    k = len(cars)
+    compounds = sorted({c.compound for c in cars} | {s.compound for c in cars for s in c.stops} | {"SOFT", "MEDIUM", "HARD"})
+    cidx = {c: i for i, c in enumerate(compounds)}
+    off, deg, se = _compound_params(model, compounds)
+    off_v = np.array([off[c] for c in compounds])
+
+    # Tyre wear per simulation: drawn once per race from the model's uncertainty.
+    deg_mean = np.array([deg[c] for c in compounds])
+    deg_sd = np.array([se[c] for c in compounds]) if param_uncertainty else np.zeros(len(compounds))
+    deg_sims = rng.normal(deg_mean, deg_sd, size=(n, len(compounds))).clip(min=0.0)
+
+    median_base = np.median(list(model.driver_base.values()))
+    base = np.array([model.driver_base.get(c.driver, median_base + 0.5) for c in cars])
+    t = np.tile(np.array([c.gap for c in cars], dtype=float), (n, 1))  # cumulative time
+    comp = np.tile(np.array([cidx[c.compound] for c in cars]), (n, 1))
+    age = np.tile(np.array([c.tyre_age for c in cars], dtype=float), (n, 1))
+    alive = np.ones((n, k), dtype=bool)
+    pit_plan = {}  # lap -> list of (car index, compound index)
+    for i, c in enumerate(cars):
+        for s in c.stops:
+            pit_plan.setdefault(s.lap, []).append((i, cidx[s.compound]))
+
+    sc_left = np.zeros(n, dtype=int)
+    vsc_left = np.zeros(n, dtype=int)
+    sc_count = np.zeros(n, dtype=int)
+    sc_lengths = np.array(track.sc_laps or [4])
+    rows = np.arange(n)[:, None]
+
+    for lap in range(start_lap + 1, total_laps + 1):
+        # 1. Random events start at the beginning of a green lap.
+        if events:
+            green = (sc_left == 0) & (vsc_left == 0)
+            u = rng.random(n)
+            new_sc = green & (u < track.sc_rate)
+            new_vsc = green & ~new_sc & (u < track.sc_rate + track.vsc_rate)
+            sc_left[new_sc] = rng.choice(sc_lengths, size=new_sc.sum()).clip(min=1)
+            vsc_left[new_vsc] = rng.integers(1, 4, size=new_vsc.sum())
+            sc_count += new_sc
+        under_sc, under_vsc = sc_left > 0, vsc_left > 0
+        neutral = under_sc | under_vsc
+
+        # 2. Racing lap time for every car from the lap-time model, plus noise.
+        age += 1
+        lap_t = (
+            base[None, :]
+            + model.fuel_per_lap * lap
+            + off_v[comp]
+            + deg_sims[rows, comp] * age
+            + rng.normal(0.0, model.sigma, size=(n, k))
+        )
+        # Under SC/VSC everyone runs a slow, fixed pace (tyres barely wear).
+        slow = np.where(under_sc, track.lap_time * track.sc_pace_factor, track.lap_time * track.vsc_pace_factor)
+        lap_t = np.where(neutral[:, None], slow[:, None] + rng.normal(0, 0.3, size=(n, k)), lap_t)
+        age = np.where(neutral[:, None], age - 0.5, age)  # half wear behind the SC
+        new_t = t + lap_t
+
+        # 3. Pit stops at the end of this lap (cheaper under SC/VSC).
+        pitting = np.zeros((n, k), dtype=bool)
+        for i, ci in pit_plan.get(lap, []):
+            loss = np.where(neutral, track.pit_loss * track.sc_pit_factor, track.pit_loss)
+            new_t[:, i] += loss
+            comp[:, i] = ci
+            age[:, i] = 0
+            pitting[:, i] = True
+
+        # 4. Battles: in running order, a car that would pass the one ahead only does so
+        #    with the track's pass chance; otherwise it is held just behind.
+        if not np.all(neutral):
+            order = np.argsort(np.where(alive, t, np.inf), axis=1)
+            p_pass = min(0.95, track.pass_prob * PASS_BOOST)
+            for p in range(1, k):
+                front, back = order[:, p - 1], order[:, p]
+                tf, tb = new_t[rows[:, 0], front], new_t[rows[:, 0], back]
+                ok = alive[rows[:, 0], front] & alive[rows[:, 0], back] & ~neutral
+                ok &= ~pitting[rows[:, 0], front] & ~pitting[rows[:, 0], back]
+                catching = ok & (tb < tf + FOLLOW_GAP)
+                passes = catching & (tb < tf) & (rng.random(n) < p_pass)
+                held = catching & ~passes
+                new_t[rows[held, 0], back[held]] = tf[held] + FOLLOW_GAP
+
+        # 5. Behind the safety car the field bunches up into a train.
+        if under_sc.any():
+            order = np.argsort(np.where(alive, new_t, np.inf), axis=1)
+            lead_t = new_t[rows[:, 0], order[:, 0]]
+            for p in range(1, k):
+                car = order[:, p]
+                m = under_sc & alive[np.arange(n), car]
+                # Everyone closes up to the car ahead: the gap becomes a fixed train gap.
+                new_t[np.arange(n)[m], car[m]] = lead_t[m] + p * SC_TRAIN_GAP
+
+        # 6. Retirements.
+        if events:
+            dnf = alive & (rng.random((n, k)) < track.dnf_rate)
+            alive &= ~dnf
+
+        t = np.where(alive, new_t, np.inf)
+        sc_left = np.maximum(sc_left - 1, 0)
+        vsc_left = np.maximum(vsc_left - 1, 0)
+
+    # Finishing position: order by total time; retired cars share last places.
+    order = np.argsort(t, axis=1, kind="stable")
+    finish = np.empty_like(order)
+    finish[rows, order] = np.arange(1, k + 1)[None, :]
+    return SimResult(codes=[c.code for c in cars], drivers=[c.driver for c in cars], finish=finish, race_time=t, sc_count=sc_count)

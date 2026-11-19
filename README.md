@@ -14,7 +14,8 @@ Deciding when to pit is an *optimal stopping* problem: the same maths banks use 
 | 1 | Lap-time model: car pace + fuel + compound + tyre wear, robust Bayesian fit with season priors | ✅ |
 | 1 | Pit loss per track (green flag vs safety car) | ✅ |
 | 1 | Walk-forward validation vs baselines: 0.66 s/lap error vs 1.14 s baseline | ✅ |
-| 2 | Monte Carlo race simulator (traffic, safety cars as a Poisson process) | ⏳ |
+| 2 | Monte Carlo race simulator: safety cars/VSCs (Gamma-Poisson), overtaking (Beta-Binomial), DNFs, tyre-wear uncertainty | ✅ |
+| 2 | Simulator backtest: 1.57 places error vs 1.89, favourite wins 91% vs 79%, well calibrated | ✅ |
 | 3 | Optimal pit engine: Least-Squares Monte Carlo (Longstaff–Schwartz) | ⏳ |
 | 3 | Undercut / overcut as a two-player game | ⏳ |
 | 4 | Season backtest: positions gained vs the teams' real calls | ⏳ |
@@ -44,6 +45,38 @@ Fit on the **first half** of each dry 2024 race only, with priors from **2023**,
 
 Known gaps (next steps): the model leans slightly slow in the second half of races (drivers push harder late; track grip grows non-linearly), safety-car pit-loss estimates are rough, and team-specific tyre wear is not modelled yet.
 
+## The race simulator (phase 2)
+
+From the real state of a race at any lap (running order, gaps, tyres), it plays out the rest of the race thousands of times at once (NumPy arrays of simulations × cars). Each simulated race draws its own:
+
+| Random part | How it's modelled | Learned from |
+|---|---|---|
+| Lap-time noise | Normal, with the model's residual spread | the lap-time model |
+| Tyre wear | Drawn per race from the wear rate's uncertainty (parameter risk) | the lap-time model |
+| Safety cars / VSCs | Poisson process per lap; per-track rate shrunk to the season rate (Gamma–Poisson) | previous season |
+| Safety-car length and pace | Sampled from observed safety-car lengths; ~1.6× lap time | previous season |
+| Overtaking | A faster car within 1 s gets past with the track's pass chance, else is held behind (Beta–Binomial per track: Monaco 2.6%, Bahrain 12%) | previous season |
+| Retirements | Per-car, per-lap hazard | previous season |
+| Pit stops | Track pit loss; under SC/VSC 55% of it (stated assumption, to be calibrated) | this race / assumption |
+
+### Backtest (2024, leak-free)
+
+Stop each dry 2024 race at 1/3, 1/2 and 2/3 distance, start the simulator from the real state with each team's real strategy, simulate 1,000 times, and compare with the real result. Track parameters come from 2023 only.
+
+| 57 race situations | BoxBox | "Order stays as it is" |
+|---|---|---|
+| Finishing-position error | **1.57 places** | 1.89 |
+| Rank correlation with result | **0.879** | 0.848 |
+| Favourite actually won | **91%** | 79% |
+| Brier score, "who wins" | **0.153** | 0.421 |
+
+Calibration: when it says ~50% chance of a podium it happened 47% of the time; ~70% → 68%; ~89% → 92%. Full output: [`results/sim_backtest_2024.txt`](results/sim_backtest_2024.txt).
+
+```bash
+python -m boxbox simulate 2024 Bahrain --from-lap 20     # win / podium / points chances for every driver
+python scripts/backtest_sim.py 2024                       # the full backtest (about 5 seconds)
+```
+
 ## Quick start
 
 ```bash
@@ -65,8 +98,12 @@ src/boxbox/
   degradation.py   lap-time + tyre-wear model, shrinkage
   pitloss.py       time lost per pit stop at a track
   season.py        fit a whole season, learn priors
+  timing.py        running order, gaps and real strategies at any lap
+  hazards.py       safety-car, overtaking and DNF rates per track
+  simulate.py      vectorised Monte Carlo race simulator
   __main__.py      command line
-scripts/validate.py  walk-forward test
+scripts/validate.py      walk-forward test of the lap-time model
+scripts/backtest_sim.py  backtest of the race simulator
 tests/               synthetic-race tests
 ```
 
