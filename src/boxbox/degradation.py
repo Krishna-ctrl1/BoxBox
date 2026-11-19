@@ -4,6 +4,7 @@
              + fuel_per_lap * lap             (car gets lighter, track grips up: usually negative)
              + compound_offset[c]             (soft is faster than hard when new)
              + deg[c] * tyre_age              (each extra lap on a tyre costs time)
+             + team_wear[team] * tyre_age     (optional: some cars are kinder to their tyres)
              + deg2[c] * tyre_age**2          (optional: wear that speeds up near the "cliff")
              + noise                          (traffic, mistakes, wind)
 
@@ -21,6 +22,7 @@ import pandas as pd
 
 
 COMPOUND_ORDER = ["SOFT", "MEDIUM", "HARD"]
+TEAM_WEAR_SD = 0.01  # prior: a team's wear differs from the field by about ±0.01 s/lap
 
 
 @dataclass
@@ -38,6 +40,14 @@ class DegModel:
     n_dropped: int
     reference: str
     quadratic: bool
+    team_deg: dict | None = None  # extra wear per team (s/lap of tyre age), shrunk toward 0
+    driver_team: dict | None = None  # driver number -> team name
+
+    def car_wear(self, driver) -> float:
+        """Extra wear for this driver's car (0 if team wear is off or unknown)."""
+        if not self.team_deg or not self.driver_team:
+            return 0.0
+        return float(self.team_deg.get(self.driver_team.get(int(driver)), 0.0))
 
     @property
     def compounds(self) -> list[str]:
@@ -51,7 +61,8 @@ class DegModel:
         k1 = np.array([self.deg.get(c, np.nan) for c in compound], dtype=float)
         k2 = np.array([self.deg2.get(c, 0.0) for c in compound], dtype=float)
         age = tyre_age.astype(float)
-        return base + self.fuel_per_lap * lap.astype(float) + off + k1 * age + k2 * age**2
+        team = np.array([self.car_wear(d) for d in driver], dtype=float)
+        return base + self.fuel_per_lap * lap.astype(float) + off + (k1 + team) * age + k2 * age**2
 
     def summary(self, codes: dict[int, str] | None = None) -> str:
         lines = [
@@ -66,14 +77,19 @@ class DegModel:
                 f"  {c:<6} pace vs {self.reference.lower()}: {self.compound_offset[c]:+.3f}s | "
                 f"wear {self.deg[c]:+.4f} ± {self.deg_se[c]:.4f} s/lap{raw}{q}"
             )
+        if self.team_deg:
+            tw = sorted(self.team_deg.items(), key=lambda kv: kv[1])
+            lines.append("  Team wear vs field: " + ", ".join(f"{t} {v:+.3f}" for t, v in tw))
         if codes:
             best = sorted(self.driver_base.items(), key=lambda kv: kv[1])[:5]
             lines.append("  Fastest base pace: " + ", ".join(f"{codes.get(d, d)} {v:.2f}s" for d, v in best))
         return "\n".join(lines)
 
 
-def _design(df: pd.DataFrame, compounds: list[str], reference: str, quadratic: bool) -> pd.DataFrame:
+def _design(df: pd.DataFrame, compounds: list[str], reference: str, quadratic: bool, teams: list[str] | None = None) -> pd.DataFrame:
     X = pd.get_dummies(df["driver"].astype(int), prefix="drv", dtype=float)
+    for t in teams or []:
+        X[f"tw_{t}"] = (df["team"] == t).astype(float) * df["tyre_age"].astype(float)
     X["lap"] = df["lap"].astype(float)
     for c in compounds:
         is_c = (df["compound"] == c).astype(float)
@@ -134,6 +150,7 @@ def fit(
     quadratic: bool = False,
     min_laps_per_compound: int = 15,
     prior: dict[str, tuple[float, float]] | None = None,
+    team_wear: bool = False,
 ) -> DegModel:
     """Fit the lap-time model on clean laps (see Race.clean).
 
@@ -149,7 +166,8 @@ def fit(
     df = df[df["compound"].isin(compounds)]
     reference = "MEDIUM" if "MEDIUM" in compounds else compounds[0]
 
-    X_all = _design(df, compounds, reference, quadratic)
+    teams = sorted(df["team"].dropna().unique()) if team_wear and "team" in df else []
+    X_all = _design(df, compounds, reference, quadratic, teams)
     y_all = df["lap_time"].to_numpy()
 
     # Weak "common sense" priors keep the fit solvable even when the data cannot
@@ -159,6 +177,8 @@ def fit(
         weak[f"deg_{c}"] = (0.06, 0.1)
         if c != reference:
             weak[f"off_{c}"] = (0.0, 1.5)
+    for t in teams:  # each team's extra wear: centred on "same as the field"
+        weak[f"tw_{t}"] = (0.0, TEAM_WEAR_SD)
     season = dict(weak)
     for c, (m, s) in (prior or {}).items():
         if f"deg_{c}" in season:
@@ -198,4 +218,6 @@ def fit(
         n_dropped=int((~keep).sum()),
         reference=reference,
         quadratic=quadratic,
+        team_deg={t: float(p[f"tw_{t}"]) for t in teams} or None,
+        driver_team=(dict(zip(df["driver"].astype(int), df["team"])) if teams else None),
     )

@@ -6,7 +6,7 @@
   "vsc_rate": 0.0041507554374896225,
   "pass_prob": 0.199907512199871,
   "pit_loss": 21.129590412326934,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5029087622405206,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -18,7 +18,8 @@
    "HARD": 42,
    "MEDIUM": 34,
    "SOFT": 10
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Baku": {
   "circuit": "Baku",
@@ -27,7 +28,7 @@
   "vsc_rate": 0.008969457326025963,
   "pass_prob": 0.10760585283098889,
   "pit_loss": 21.699374193892353,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.274288034878239,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -39,7 +40,8 @@
    "HARD": 52,
    "MEDIUM": 22,
    "SOFT": 4
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Catalunya": {
   "circuit": "Catalunya",
@@ -48,7 +50,7 @@
   "vsc_rate": 0.005088022794342118,
   "pass_prob": 0.23021208924438286,
   "pit_loss": 23.702412043202273,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -81,7 +83,8 @@
    "HARD": 36,
    "MEDIUM": 34,
    "SOFT": 27
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Hungaroring": {
   "circuit": "Hungaroring",
@@ -90,7 +93,7 @@
   "vsc_rate": 0.003639893229798592,
   "pass_prob": 0.12659653008490218,
   "pit_loss": 21.151056921613808,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -123,7 +126,8 @@
    "HARD": 43,
    "MEDIUM": 42,
    "SOFT": 17
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Imola": {
   "circuit": "Imola",
@@ -132,7 +136,7 @@
   "vsc_rate": 0.005171433004085431,
   "pass_prob": 0.12159468438538207,
   "pit_loss": 28.41165422220078,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -165,7 +169,8 @@
    "HARD": 56,
    "MEDIUM": 39,
    "SOFT": 10
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Jeddah": {
   "circuit": "Jeddah",
@@ -174,7 +179,7 @@
   "vsc_rate": 0.004443062158439596,
   "pass_prob": 0.10737739029843903,
   "pit_loss": 21.69174278772855,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.3779669925365292,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -187,7 +192,8 @@
    "HARD": 51,
    "MEDIUM": 43,
    "SOFT": 18
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Las Vegas": {
   "circuit": "Las Vegas",
@@ -196,7 +202,7 @@
   "vsc_rate": 0.00931278583611308,
   "pass_prob": 0.19009189082251496,
   "pit_loss": 23.205674843604697,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.7105710013432343,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -209,7 +215,8 @@
    "HARD": 37,
    "MEDIUM": 28,
    "SOFT": 12
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Lusail": {
   "circuit": "Lusail",
@@ -218,7 +225,7 @@
   "vsc_rate": 0.00988006213069865,
   "pass_prob": 0.20656146179401993,
   "pit_loss": 27.417701915519125,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.6167120763408187,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -233,7 +240,8 @@
    "HARD": 32,
    "MEDIUM": 37,
    "SOFT": 20
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Melbourne": {
   "circuit": "Melbourne",
@@ -242,7 +250,7 @@
   "vsc_rate": 0.018355219719756437,
   "pass_prob": 0.09865665174057489,
   "pit_loss": 19.877983027925993,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -256,7 +264,8 @@
    "HARD": 50,
    "MEDIUM": 39,
    "SOFT": 12
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Mexico City": {
   "circuit": "Mexico City",
@@ -265,7 +274,7 @@
   "vsc_rate": 0.0077854889589905356,
   "pass_prob": 0.14703421684409632,
   "pit_loss": 23.02709897700541,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.6181165033148126,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -278,7 +287,8 @@
    "HARD": 51,
    "MEDIUM": 41,
    "SOFT": 13
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Miami": {
   "circuit": "Miami",
@@ -287,7 +297,7 @@
   "vsc_rate": 0.008536720349770325,
   "pass_prob": 0.111702602064706,
   "pit_loss": 19.70773465292116,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.2362308866857352,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -299,7 +309,8 @@
    "HARD": 56,
    "MEDIUM": 37,
    "SOFT": 31
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Monte Carlo": {
   "circuit": "Monte Carlo",
@@ -308,7 +319,7 @@
   "vsc_rate": 0.004828429794630785,
   "pass_prob": 0.026187219073675983,
   "pit_loss": 23.01391271337843,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -341,7 +352,8 @@
    "HARD": 80,
    "MEDIUM": 80,
    "SOFT": 31
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Montreal": {
   "circuit": "Montreal",
@@ -350,7 +362,7 @@
   "vsc_rate": 0.010635913878402372,
   "pass_prob": 0.06184863241250626,
   "pit_loss": 20.84145118422255,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5955026420847278,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -362,7 +374,8 @@
    "HARD": 70,
    "MEDIUM": 40,
    "SOFT": 11
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Monza": {
   "circuit": "Monza",
@@ -371,7 +384,7 @@
   "vsc_rate": 0.004206098843322818,
   "pass_prob": 0.11350582803085758,
   "pit_loss": 25.62060229304005,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -404,7 +417,8 @@
    "HARD": 44,
    "MEDIUM": 27,
    "SOFT": 4
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Sakhir": {
   "circuit": "Sakhir",
@@ -413,7 +427,7 @@
   "vsc_rate": 0.008425853851721359,
   "pass_prob": 0.12376381055396739,
   "pit_loss": 24.240610365301315,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -446,7 +460,8 @@
    "HARD": 32,
    "MEDIUM": 12,
    "SOFT": 24
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Shanghai": {
   "circuit": "Shanghai",
@@ -455,7 +470,7 @@
   "vsc_rate": 0.014972094151904876,
   "pass_prob": 0.11795134785613949,
   "pit_loss": 23.568440332326986,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.3853928140730505,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -468,7 +483,8 @@
    "HARD": 41,
    "MEDIUM": 31,
    "SOFT": 22
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Silverstone": {
   "circuit": "Silverstone",
@@ -477,7 +493,7 @@
   "vsc_rate": 0.013423256825845751,
   "pass_prob": 0.08831533080685822,
   "pit_loss": 20.790561992177118,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.541787514582018,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -489,7 +505,8 @@
    "HARD": 34,
    "MEDIUM": 35,
    "SOFT": 30
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Singapore": {
   "circuit": "Singapore",
@@ -498,7 +515,7 @@
   "vsc_rate": 0.008178034620788378,
   "pass_prob": 0.08175375390349865,
   "pit_loss": 30.265862734720713,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -510,7 +527,8 @@
    "HARD": 51,
    "MEDIUM": 44,
    "SOFT": 30
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Spa-Francorchamps": {
   "circuit": "Spa-Francorchamps",
@@ -519,7 +537,7 @@
   "vsc_rate": 0.005770562437485573,
   "pass_prob": 0.10196992045877504,
   "pit_loss": 18.54547500888779,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -552,7 +570,8 @@
    "HARD": 36,
    "MEDIUM": 26,
    "SOFT": 10
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Suzuka": {
   "circuit": "Suzuka",
@@ -561,7 +580,7 @@
   "vsc_rate": 0.008928313026365294,
   "pass_prob": 0.2107133236701343,
   "pit_loss": 22.533112580883447,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.6743981983992533,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -573,7 +592,8 @@
    "HARD": 32,
    "MEDIUM": 27,
    "SOFT": 21
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Yas Marina Circuit": {
   "circuit": "Yas Marina Circuit",
@@ -582,7 +602,7 @@
   "vsc_rate": 0.008317830084391598,
   "pass_prob": 0.20523525318750674,
   "pit_loss": 22.8658007465164,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -615,7 +635,8 @@
    "HARD": 47,
    "MEDIUM": 31,
    "SOFT": 27
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "Zandvoort": {
   "circuit": "Zandvoort",
@@ -624,7 +645,7 @@
   "vsc_rate": 0.004929022082018927,
   "pass_prob": 0.12168691113742833,
   "pit_loss": 23.11129425029084,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -657,7 +678,8 @@
    "HARD": 59,
    "MEDIUM": 35,
    "SOFT": 26
-  }
+  },
+  "vsc_pit_factor": 0.750014825659319
  },
  "_default": {
   "circuit": "_default",
@@ -666,7 +688,7 @@
   "vsc_rate": 0.007886435331230283,
   "pass_prob": 0.12624584717607973,
   "pit_loss": 22.533112580883447,
-  "sc_pit_factor": 0.55,
+  "sc_pit_factor": 0.58,
   "sc_pace_factor": 1.5880348720187212,
   "vsc_pace_factor": 1.35,
   "sc_laps": [
@@ -695,6 +717,7 @@
   ],
   "lap_time": 92.883,
   "dnf_rate": 0.002263607367013067,
-  "tyre_life": {}
+  "tyre_life": {},
+  "vsc_pit_factor": 0.750014825659319
  }
 }

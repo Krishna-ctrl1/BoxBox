@@ -9,14 +9,24 @@ def test_rules_force_a_new_compound():
     me = Car(1, "AAA", 0.0, "MEDIUM", 10)
     plans, stay, must = feasible_plans(me, {"MEDIUM"}, 20, 50, TYRE_LIFE)
     assert must and not stay
-    assert all(c != "MEDIUM" for _, c in plans)
+    assert all(c != "MEDIUM" for (_, c), in plans)  # one-stop plans: the only stop is a new compound
 
 
 def test_new_tyre_must_reach_the_flag():
     me = Car(1, "AAA", 0.0, "MEDIUM", 5)
     plans, _, _ = feasible_plans(me, {"MEDIUM"}, 10, 60, TYRE_LIFE)
     assert plans
-    assert all(60 - lap <= TYRE_LIFE[c] for lap, c in plans)
+    assert all(60 - lap <= TYRE_LIFE[c] for (lap, c), in plans)
+
+
+def test_two_stop_plans_respect_rules_and_tyre_life():
+    me = Car(1, "AAA", 0.0, "MEDIUM", 5)
+    plans, _, _ = feasible_plans(me, {"MEDIUM"}, 10, 70, TYRE_LIFE, max_stops=2)
+    two = [p for p in plans if len(p) == 2]
+    assert two
+    for (l1, c1), (l2, c2) in two:
+        assert {c1, c2} != {"MEDIUM"}  # the race must see a second compound
+        assert l2 - l1 <= TYRE_LIFE[c1] and 70 - l2 <= TYRE_LIFE[c2] and l2 - l1 >= 6
 
 
 def test_engine_discovers_box_under_safety_car():

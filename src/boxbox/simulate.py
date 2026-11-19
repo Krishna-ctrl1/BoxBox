@@ -139,6 +139,7 @@ def simulate(
 
     median_base = np.median(list(model.driver_base.values()))
     base = np.array([model.driver_base.get(c.driver, median_base + 0.5) for c in cars])
+    car_wear = np.array([model.car_wear(c.driver) for c in cars])  # team-specific extra wear (0 if off)
     t = np.tile(np.array([c.gap for c in cars], dtype=float), (n, 1))  # cumulative time
     comp = np.tile(np.array([cidx[c.compound] for c in cars]), (n, 1))
     age = np.tile(np.array([c.tyre_age for c in cars], dtype=float), (n, 1))
@@ -181,7 +182,7 @@ def simulate(
             base[None, :]
             + model.fuel_per_lap * lap
             + off_v[comp]
-            + deg_sims[rows, comp] * age
+            + (deg_sims[rows, comp] + car_wear[None, :]) * age
             + rng.normal(0.0, model.sigma, size=(n, k))
         )
         # Under SC/VSC everyone runs a slow, fixed pace (tyres barely wear).
@@ -192,7 +193,8 @@ def simulate(
 
         # 3. Pit stops at the end of this lap (cheaper under SC/VSC).
         pitting = np.zeros((n, k), dtype=bool)
-        loss = np.where(neutral, track.pit_loss * track.sc_pit_factor, track.pit_loss)
+        loss = np.where(under_sc, track.pit_loss * track.sc_pit_factor,
+                        np.where(under_vsc, track.pit_loss * track.vsc_pit_factor, track.pit_loss))
         for j in range(max_s):
             m = stop_lap[:, :, j] == lap
             pitting |= m
@@ -255,7 +257,7 @@ def simulate(
 
         # Strategist's view at the end of this lap (before the recorded car's own stop is applied).
         if record is not None:
-            own_t = new_t[:, record] - (pitting[:, record] * np.where(neutral, track.pit_loss * track.sc_pit_factor, track.pit_loss))
+            own_t = new_t[:, record] - pitting[:, record] * loss
             others = np.where(alive, new_t, np.inf)
             others[:, record] = np.inf
             with np.errstate(invalid="ignore"):  # retired cars are inf: inf - inf is fine to drop

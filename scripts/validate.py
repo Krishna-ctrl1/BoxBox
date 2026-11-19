@@ -27,7 +27,7 @@ from boxbox import degradation, openf1, season  # noqa: E402
 from boxbox.race import load_race  # noqa: E402
 
 
-def evaluate(year: int, cut: float) -> pd.DataFrame:
+def evaluate(year: int, cut: float, team_wear: bool = False) -> pd.DataFrame:
     try:
         prior = season.load_priors(year - 1)
         print(f"Using {year - 1} wear priors: " + ", ".join(f"{c} {m:.3f}±{s:.3f}" for c, (m, s) in prior.items()))
@@ -44,7 +44,7 @@ def evaluate(year: int, cut: float) -> pd.DataFrame:
         clean = race.clean
         train, test = clean[clean["lap"] <= cutoff], clean[clean["lap"] > cutoff]
         try:
-            model = degradation.fit(train, prior=prior)
+            model = degradation.fit(train, prior=prior, team_wear=team_wear)
         except ValueError:
             continue
         test = test[test["driver"].isin(model.driver_base) & test["compound"].isin(model.deg)]
@@ -71,8 +71,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("year", type=int)
     ap.add_argument("--cut", type=float, default=0.5, help="fraction of the race used for fitting")
+    ap.add_argument("--team-wear", action="store_true", help="give each team its own tyre wear")
     a = ap.parse_args()
-    t = evaluate(a.year, a.cut)
+    t = evaluate(a.year, a.cut, a.team_wear)
     pd.set_option("display.width", 160)
     print(t.round(3).to_string(index=False))
     w = t["laps_tested"]

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* Pit-wall timing screen: deliberately one dark look (like the real screens). */
+@theme {
+  --color-bg: #0b0d10;
+  --color-panel: #12161b;
+  --color-panel-2: #171c23;
+  --color-line: #232a33;
+  --color-ink: #e8edf1;
+  --color-mute: #8d98a5;
+  --color-dim: #5c6672;
+  --color-amber: #ffb020;
+  --color-good: #3ccf7a;
+  --color-bad: #ff5d5d;
+  --color-soft: #ff3b3b;
+  --color-medium: #ffd12e;
+  --color-hard: #e8e8e8;
+  --color-inter: #3ccf5a;
+  --color-wet: #3b8cff;
+  --color-sc: #ffb020;
+  --font-display: "Titillium Web", "Arial Narrow", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+:root { color-scheme: dark; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color-amber); color: var(--color-bg); }
+:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 2px; border-radius: 4px; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+input[type="range"] { accent-color: var(--color-amber); }
+.scroll-x { overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

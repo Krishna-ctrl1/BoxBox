@@ -1,0 +1,41 @@
+  Sakhir             SAI vs PER (2.6s): real L35/L36 -> 89.8% | Nash value 91.0% | attacker best reply L31 +1.5%, defender best reply L31 +3.0%
+  Sakhir             RUS vs SAI (2.3s): real L31/L35 -> 13.8% | Nash value 9.0% | attacker best reply L26 +0.7%, defender best reply L30 +6.8%
+  Sakhir             LEC vs RUS (1.2s): real L34/L31 -> 27.0% | Nash value 28.8% | attacker best reply L31 +3.2%, defender best reply L31 +0.0%
+  Sakhir             PIA vs NOR (2.4s): real L34/L33 -> 16.2% | Nash value 16.8% | attacker best reply L29 +1.2%, defender best reply L34 +0.8%
+  Sakhir             ZHO vs ALO (1.5s): real L28/L41 -> 17.5% | Nash value 14.2% | attacker best reply L25 +0.8%, defender best reply L36 +4.5%
+  Melbourne          LEC vs SAI (1.3s): real L34/L41 -> 30.5% | Nash value 25.8% | attacker best reply L30 +4.7%, defender best reply L37 +6.8%
+  Melbourne          PIA vs LEC (2.1s): real L39/L34 -> 27.5% | Nash value 32.8% | attacker best reply L34 +6.0%, defender best reply L33 +0.5%
+  Melbourne          PER vs RUS (1.3s): real L35/L45 -> 87.8% | Nash value 85.2% | attacker best reply L37 +1.0%, defender best reply L40 +2.5%
+  Melbourne          STR vs PER (2.1s): real L37/L35 -> 17.0% | Nash value 21.4% | attacker best reply L32 +8.0%, defender best reply L35 +0.0%
+  Suzuka             PER vs NOR (1.4s): real L33/L26 -> 67.2% | Nash value 64.5% | attacker best reply L30 +3.2%, defender best reply L30 +8.0%
+  Suzuka             PIA vs ALO (2.3s): real L32/L33 -> 9.8% | Nash value 8.6% | attacker best reply L31 +1.5%, defender best reply L30 +2.3%
+  Imola              LEC vs NOR (1.6s): real L25/L22 -> 47.5% | Nash value 42.0% | attacker best reply L29 +0.3%, defender best reply L27 +12.8%
+  Imola              PIA vs SAI (0.9s): real L23/L27 -> 38.0% | Nash value 41.4% | attacker best reply L28 +9.2%, defender best reply L25 +1.3%
+  Hungaroring        PIA vs LEC (1.4s): real L47/L40 -> 83.5% | Nash value 83.2% | attacker best reply L42 +3.0%, defender best reply L35 +3.5%
+  Hungaroring        NOR vs PIA (2.8s): real L45/L47 -> 31.5% | Nash value 28.6% | attacker best reply L40 +0.3%, defender best reply L45 +3.5%
+  Hungaroring        HAM vs NOR (2.0s): real L40/L45 -> 49.0% | Nash value 51.4% | attacker best reply L38 +3.0%, defender best reply L44 +0.5%
+  Spa-Francorchamps  LEC vs HAM (1.7s): real L25/L26 -> 13.8% | Nash value 14.5% | attacker best reply L21 +2.5%, defender best reply L24 +0.8%
+  Spa-Francorchamps  PIA vs LEC (2.1s): real L30/L25 -> 22.8% | Nash value 20.4% | attacker best reply L27 +1.7%, defender best reply L27 +4.5%
+  Spa-Francorchamps  TSU vs MAG (2.3s): real L15/L17 -> 37.8% | Nash value 15.2% | attacker best reply L15 +0.0%, defender best reply L15 +22.5%
+  Zandvoort          SAI vs PER (2.4s): real L30/L29 -> 43.2% | Nash value 44.2% | attacker best reply L35 +6.5%, defender best reply L30 +6.8%
+  Monza              NOR vs PIA (2.3s): real L32/L38 -> 22.0% | Nash value 18.4% | attacker best reply L31 +0.0%, defender best reply L34 +3.8%
+  Singapore          PIA vs RUS (1.5s): real L38/L27 -> 41.8% | Nash value 30.4% | attacker best reply L33 +8.5%, defender best reply L31 +11.8%
+  Singapore          ALO vs HUL (0.8s): real L25/L29 -> 43.0% | Nash value 44.4% | attacker best reply L30 +6.2%, defender best reply L29 +0.0%
+  Singapore          LEC vs ALO (0.5s): real L36/L25 -> 47.0% | Nash value 40.7% | attacker best reply L32 +2.8%, defender best reply L29 +9.5%
+  Singapore          COL vs LEC (2.6s): real L29/L36 -> 38.2% | Nash value 35.0% | attacker best reply L27 +1.3%, defender best reply L31 +5.5%
+  Austin             SAI vs VER (1.9s): real L21/L25 -> 31.8% | Nash value 25.6% | attacker best reply L22 +2.7%, defender best reply L23 +8.3%
+  Mexico City        NOR vs VER (1.2s): real L30/L26 -> 34.0% | Nash value 24.7% | attacker best reply L34 +6.7%, defender best reply L30 +17.8%
+  Mexico City        HAM vs RUS (2.5s): real L28/L31 -> 26.8% | Nash value 28.0% | attacker best reply L33 +9.5%, defender best reply L30 +0.0%
+  Mexico City        GAS vs HUL (2.5s): real L28/L29 -> 31.8% | Nash value 29.1% | attacker best reply L31 +1.0%, defender best reply L32 +4.2%
+  Las Vegas          SAI vs VER (2.4s): real L28/L27 -> 20.0% | Nash value 21.2% | attacker best reply L24 +3.2%, defender best reply L28 +3.2%
+  Las Vegas          HAM vs LEC (1.6s): real L27/L31 -> 82.5% | Nash value 80.5% | attacker best reply L28 +0.5%, defender best reply L26 +4.0%
+  Las Vegas          MAG vs TSU (0.7s): real L17/L29 -> 13.5% | Nash value 11.8% | attacker best reply L22 +2.5%, defender best reply L25 +2.5%
+  Las Vegas          PIA vs MAG (0.2s): real L25/L17 -> 91.0% | Nash value 91.8% | attacker best reply L20 +1.0%, defender best reply L18 +1.0%
+  Yas Marina Circuit LEC vs RUS (1.0s): real L20/L26 -> 76.2% | Nash value 67.0% | attacker best reply L20 +0.0%, defender best reply L21 +9.2%
+
+34 close duels (within 3 s, top 10, one stop each) across 13 races, 400 races per cell.
+Attacker finishes ahead: as really played 40.3% | Nash equilibrium 37.9%
+Gap between real play and equilibrium: mean |real - value| 3.9%
+Best reply to the other team's real lap gains: attacker +3.1%, defender +5.1% on average
+Equilibrium is pure (a single best lap for both) in 38% of duels; mixed otherwise
+Equilibrium weight within 1 lap of the real choice: attacker 29%, defender 12%

@@ -26,7 +26,12 @@ OUT = Path(__file__).resolve().parents[2] / "data"
 CLOSE = 1.0  # seconds: a "battle"
 PRIOR_LAPS = 120  # Gamma prior worth about two races of evidence
 PRIOR_BATTLES = 60  # Beta prior worth about 60 battles
-SC_PIT_FACTOR = 0.55
+# Pit stop under a safety car, as a share of a green-flag stop. Measured by
+# measure_sc_pit_factor(): stops whose in-lap AND out-lap were both fully behind the
+# SC, compared with the rest of the field on those laps. 2023-24: Suzuka 0.58,
+# Miami 0.66, Shanghai 0.52 -> median 0.58 (6 stops, 3 races; a small sample).
+SC_PIT_FACTOR = 0.58
+MIN_SC_PIT_STOPS = 5  # fewer clean stops than this: fall back to SC_PIT_FACTOR
 
 
 @dataclass
@@ -44,6 +49,7 @@ class TrackParams:
     lap_time: float = 90.0  # typical clean lap (s)
     dnf_rate: float = 0.0006  # chance per car per lap of retiring
     tyre_life: dict = field(default_factory=dict)  # longest stint seen per compound at this track (+2 laps)
+    vsc_pit_factor: float = 0.75  # pit loss under VSC as a share of green (derived, see vsc_pit_factor())
 
 
 def _battles(race: Race) -> tuple[int, int]:
@@ -108,7 +114,7 @@ def _race_stats(race: Race) -> dict:
 
 
 def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
-    rows = []
+    rows, rows_races = [], []
     for y in years:
         for s in openf1.season_races(y):
             try:
@@ -116,6 +122,7 @@ def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
                 if race.wet:
                     continue
                 rows.append(_race_stats(race))
+                rows_races.append(race)
             except Exception as e:  # noqa: BLE001
                 if verbose:
                     print(f"  skip {y} {s['circuit_short_name']}: {e}")
@@ -129,10 +136,9 @@ def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
     vsc_pace = float(np.nanmedian(df["vsc_pace"])) if df["vsc_pace"].notna().any() else np.nan
     if not (1.2 <= vsc_pace <= 1.6):  # too few full VSC laps to measure: use the usual ~35% slower
         vsc_pace = 1.35
-    # ASSUMPTION: a stop under SC/VSC costs about 55% of a green-flag stop. Our direct
-    # estimate from lap times is biased (cars are still closing up to the SC train),
-    # so this is a stated assumption to calibrate in the strategy backtest.
-    sc_pit_factor = SC_PIT_FACTOR
+    sc_pit_factor, n_clean = measure_sc_pit_factor(rows_races)
+    if n_clean < MIN_SC_PIT_STOPS:
+        sc_pit_factor = SC_PIT_FACTOR
     dnf_rate = df["dnf"].sum() / df["car_laps"].sum()
     all_sc = [x for xs in df["sc_lengths"] for x in xs] or [4]
 
@@ -153,14 +159,61 @@ def estimate(years: list[int], verbose: bool = True) -> dict[str, TrackParams]:
             lap_time=float(g["lap_time"].median()),
             dnf_rate=float(dnf_rate),
             tyre_life=_track_life(g),
+            vsc_pit_factor=vsc_pit_factor(sc_pit_factor, sc_pace, vsc_pace),
         )
     out["_default"] = TrackParams(
         circuit="_default", races=len(df), sc_rate=float(sc_rate), vsc_rate=float(vsc_rate), pass_prob=float(pass_rate),
         pit_loss=float(np.nanmedian(df["pit_loss"])), sc_pit_factor=sc_pit_factor, sc_pace_factor=sc_pace,
         vsc_pace_factor=vsc_pace, sc_laps=[int(x) for x in all_sc], lap_time=float(df["lap_time"].median()),
-        dnf_rate=float(dnf_rate),
+        dnf_rate=float(dnf_rate), vsc_pit_factor=vsc_pit_factor(sc_pit_factor, sc_pace, vsc_pace),
     )
     return out
+
+
+def measure_sc_pit_factor(races: list[Race]) -> tuple[float, int]:
+    """Pit loss under a safety car as a share of green pit loss, from clean examples.
+
+    Only stops whose in-lap and out-lap are both fully behind the SC count (not the
+    deploy lap, when the field is still racing to the queue, and not the restart).
+    Loss = the pitting car's two laps minus the rest of the field's median on those
+    laps. Laps that overlap a VSC are left out (a VSC turning into a SC is ambiguous).
+    Returns (median ratio, number of stops).
+    """
+    ratios = []
+    for race in races:
+        try:
+            green = pitloss.estimate(race, degradation.fit(race.clean)).green
+        except Exception:  # noqa: BLE001
+            continue
+        if not np.isfinite(green) or green <= 0:
+            continue
+        L = race.laps
+        busy = L["is_pit_in_lap"] | L["is_pit_out_lap"]
+        vsc_laps = {l for n in race.neutralisations if n.kind == "VSC" for l in range(n.start_lap, n.end_lap + 1)}
+        for n in race.neutralisations:
+            if n.kind != "SC":
+                continue
+            full = set(range(n.start_lap + 1, n.end_lap - 1)) - vsc_laps
+            field_lap = L[~busy & L["lap"].isin(full)].groupby("lap")["lap_time"].median()
+            for st in race.pits.itertuples():
+                tau = int(st.lap)
+                if tau not in field_lap.index or tau + 1 not in field_lap.index:
+                    continue
+                a = L[(L["driver"] == st.driver) & (L["lap"] == tau)]["lap_time"]
+                b = L[(L["driver"] == st.driver) & (L["lap"] == tau + 1)]["lap_time"]
+                if len(a) and len(b) and pd.notna(a.iloc[0]) and pd.notna(b.iloc[0]):
+                    loss = a.iloc[0] + b.iloc[0] - field_lap[tau] - field_lap[tau + 1]
+                    if loss > 0:
+                        ratios.append(loss / green)
+    return (float(np.median(ratios)) if ratios else SC_PIT_FACTOR), len(ratios)
+
+
+def vsc_pit_factor(sc_factor: float, sc_pace: float, vsc_pace: float) -> float:
+    """Derived, not measured (too few clean VSC stops): the saving from stopping under
+    a VSC scales with how much the field slows. SC slows laps by (sc_pace - 1), a VSC
+    by (vsc_pace - 1), so the VSC saving is that share of the SC saving."""
+    saving = (1 - sc_factor) * (vsc_pace - 1) / max(sc_pace - 1, 1e-6)
+    return float(np.clip(1 - saving, sc_factor, 1.0))
 
 
 def _track_life(g: pd.DataFrame) -> dict:

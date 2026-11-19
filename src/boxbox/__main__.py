@@ -25,6 +25,14 @@ def main() -> None:
     m.add_argument("--n", type=int, default=2000, help="number of simulated races")
     hz = sub.add_parser("hazards", help="learn safety-car, overtaking, DNF and tyre-life rates per track")
     hz.add_argument("years", type=int, nargs="+", help="e.g. 2023, or 2023 2024")
+    du = sub.add_parser("duel", help="two drivers' pit timing as a game: Nash equilibrium")
+    du.add_argument("year", type=int)
+    du.add_argument("race")
+    du.add_argument("us", help="three-letter code, e.g. LEC")
+    du.add_argument("them", help="three-letter code, e.g. SAI")
+    du.add_argument("--from-lap", type=int, required=True)
+    du.add_argument("--window", type=int, default=5, help="laps either side of each team's real stop")
+    du.add_argument("--n", type=int, default=600)
     pt = sub.add_parser("pit", help="best pit lap and tyre for one driver, plus a safety-car rule")
     pt.add_argument("year", type=int)
     pt.add_argument("race")
@@ -43,6 +51,48 @@ def main() -> None:
         print(f"Saved {len(p) - 1} tracks to {path}")
         print(f"  season-wide: SC {d.sc_rate:.4f}/lap, VSC {d.vsc_rate:.4f}/lap, pass {d.pass_prob:.1%} of close battles, "
               f"DNF {d.dnf_rate:.4f}/car/lap, pit loss {d.pit_loss:.1f} s")
+        return
+
+    if a.cmd == "duel":
+        from . import game, hazards, timing
+        from .simulate import Car
+
+        race = load_race(a.year, a.race)
+        try:
+            prior, params = season.load_priors(a.year - 1), hazards.load(str(a.year - 1))
+        except FileNotFoundError:
+            prior, params = None, hazards.load("2023_2024")
+        m = degradation.fit(race.clean[race.clean["lap"] <= a.from_lap], prior=prior)
+        codes = dict(zip(race.drivers["driver"], race.drivers["code"]))
+        st = timing.state_at(race, a.from_lap)
+        cars = [
+            Car(int(r.driver), codes.get(int(r.driver), str(r.driver)), float(r.gap), r.compound, int(r.tyre_age),
+                timing.strategy_after(race, int(r.driver), a.from_lap))
+            for r in st.itertuples() if isinstance(r.compound, str)
+        ]
+        idx = {c.code: i for i, c in enumerate(cars)}
+        for code in (a.us, a.them):
+            if code.upper() not in idx:
+                raise SystemExit(f"{code} is not running at lap {a.from_lap}.")
+        u, t = idx[a.us.upper()], idx[a.them.upper()]
+        for i in (u, t):
+            if not cars[i].stops:
+                raise SystemExit(f"{cars[i].code} made no more stops after lap {a.from_lap}; a duel needs one each.")
+
+        def window(c):
+            lap = c.stops[0].lap
+            return [l for l in range(lap - a.window, lap + a.window + 1) if a.from_lap < l <= race.total_laps - 3]
+
+        d = game.pit_duel(cars, u, t, a.from_lap, race.total_laps, m, hazards.for_track(params, race.circuit),
+                          window(cars[u]), window(cars[t]), cars[u].stops[0].compound, cars[t].stops[0].compound, n=a.n)
+        real_u, real_t = cars[u].stops[0].lap, cars[t].stops[0].lap
+        print(race)
+        print(f"Gap at lap {a.from_lap}: {cars[u].code} P{u + 1}, {cars[t].code} P{t + 1}. "
+              f"Real stops: {cars[u].code} lap {real_u}, {cars[t].code} lap {real_t}.")
+        print(d.summary())
+        print(f"  What really happened (laps {real_u} vs {real_t}): {cars[u].code} ahead {d.at(real_u, real_t):.1%} in the simulator")
+        br, p = d.best_reply(real_t)
+        print(f"  {cars[u].code}'s best reply to {cars[t].code}'s real lap: lap {br} -> {p:.1%}")
         return
 
     if a.cmd == "pit":
@@ -76,7 +126,7 @@ def main() -> None:
               f"What the team really did next: {[(s.lap, s.compound) for s in cars[i].stops] or 'no more stops'}")
         print(adv.summary())
         print("\nTop fixed plans (fresh races):")
-        print(adv.fixed.head(6)[["lap", "compound", "exp_pos", "p_win", "p_podium", "p_points"]].round(3).to_string(index=False))
+        print(adv.fixed.head(8)[["stops", "plan", "exp_pos", "p_win", "p_podium", "p_points"]].round(3).to_string(index=False))
         return
 
     if a.cmd == "fit":
