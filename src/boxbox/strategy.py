@@ -28,8 +28,10 @@ therefore "neutralised this lap or not", and the conditional expectation is
 the plain sample mean over those races (the regression on an indicator).
 
 Comparing the rule with the best fixed plan gives the value of being able to
-react: the option value. Current scope: at most one more stop; rivals keep
-their own strategies (responding rivals come in the game-theory step).
+react: the option value. Rivals respond as real teams did in 2023: the car
+just ahead covers a green-flag stop about one time in five (see simulate.COVER_*).
+This is a leader-follower model, not a full Nash equilibrium. Scope: at most
+one more stop.
 """
 
 from __future__ import annotations
@@ -126,6 +128,7 @@ def optimal_pit(
     n_test: int = 1500,
     seed: int = 7,
     tyre_life: dict[str, int] | None = None,
+    rivals_respond: bool = True,
 ) -> PitAdvice:
     """Best pit lap and tyre for cars[focal]: a fixed plan plus a safety-car rule."""
     # Tyre life: this track's own history where we have it, else the season-wide limit.
@@ -147,7 +150,8 @@ def optimal_pit(
     sims = {}
     for name, sd, n in (("train", seed, n_train), ("test", seed + 1000, n_test)):
         base = simulate(with_stop([]), start_lap, total_laps, model, track, n=n, seed=sd, record=focal)
-        Y = {p: simulate(with_stop([Stop(*p)]), start_lap, total_laps, model, track, n=n, seed=sd).finish[:, focal]
+        resp = focal if rivals_respond else None
+        Y = {p: simulate(with_stop([Stop(*p)]), start_lap, total_laps, model, track, n=n, seed=sd, respond_to=resp).finish[:, focal]
              for p in plans}
         f = base.features
         sims[name] = dict(Y=Y, stay=base.finish[:, focal], neutral=(f["sc"] + f["vsc"]) > 0)

@@ -4,12 +4,16 @@ For every dry race, stop the clock at 1/3 distance. For each top-10 driver who
 in reality made exactly one more stop, compare on the same 800 fresh
 simulated races (common random numbers):
 
-  - TEAM:    the lap and tyre the team actually chose
+  - TEAM:    the lap and tyre the team actually chose (stops made under a real
+             safety car are left out: the simulator would replay that lap green)
   - FIXED:   BoxBox's best fixed plan (chosen on separate training races)
   - RULE:    BoxBox's plan plus its safety-car rule
 
 Lower expected finishing position is better. Also reported: how close
 BoxBox's pit lap is to the team's, and whether it picked the same tyre.
+
+Rivals respond in every arm: the car just ahead may cover a green-flag stop
+(rates measured from 2023), so an undercut is no longer free.
 
 Caveat, stated plainly: the comparison is judged inside BoxBox's own
 simulator, so it measures "better under our model of the race", not proof
@@ -62,9 +66,12 @@ def main():
                 timing.strategy_after(race, int(r.driver), start))
             for r in st.itertuples() if isinstance(r.compound, str)
         ]
+        neutral = {l for nn in race.neutralisations for l in range(nn.start_lap, nn.end_lap + 1)}
         for i, me in enumerate(cars[:10]):
             if len(me.stops) != 1 or me.stops[0].compound not in ("SOFT", "MEDIUM", "HARD"):
                 continue
+            if me.stops[0].lap in neutral:
+                continue  # the team stopped under a real safety car: the simulator would replay that lap green
             used = set(race.laps[(race.laps["driver"] == me.driver) & (race.laps["lap"] <= start)]["compound"].dropna())
             try:
                 adv = optimal_pit(cars, i, start, race.total_laps, model, track, used_compounds=used,
@@ -72,7 +79,9 @@ def main():
             except ValueError as e:
                 print(f"  skip {race.circuit} {me.code}: {e}")
                 continue
-            team = simulate(cars, start, race.total_laps, model, track, n=a.n, seed=SEED + 1000).finish[:, i]
+            # The team's real call, judged in the same fresh races with the same rival responses.
+            team = simulate(cars, start, race.total_laps, model, track, n=a.n, seed=SEED + 1000,
+                            respond_to=i).finish[:, i]
             b = adv.best_fixed
             rows.append(dict(
                 circuit=race.circuit, code=me.code, pos_now=i + 1,

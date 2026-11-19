@@ -33,3 +33,24 @@ def test_engine_discovers_box_under_safety_car():
     assert adv.best_fixed["compound"] == "HARD"
     assert len(adv.sc_rule) > 0
     assert adv.option_value > 0.05
+
+
+def test_covering_rivals_blunt_the_undercut(monkeypatch):
+    """BBB leads AAA by 2.5 s, both must stop; passing is impossible.
+
+    If AAA pits first (undercut) on fresher tyres it jumps BBB, unless BBB covers
+    by pitting the next lap. With covering switched fully on, the undercut
+    should win far less often.
+    """
+    import boxbox.simulate as S
+    from boxbox.timing import Stop
+
+    m = model({1: 90.0, 2: 90.0})
+    m.deg = {"SOFT": 0.12, "MEDIUM": 0.08, "HARD": 0.04}  # a normal undercut: fresh hards gain ~1.5 s/lap
+    cars = [Car(2, "BBB", 0.0, "MEDIUM", 20, [Stop(30, "HARD")]), Car(1, "AAA", 2.5, "MEDIUM", 20, [Stop(24, "HARD")])]
+    t = track(pass_prob=0.0, tyre_life={})
+    calm = S.simulate(cars, 20, 50, m, t, n=600, seed=3, events=False).table().set_index("code")
+    monkeypatch.setattr(S, "COVER_AHEAD", 1.0)  # BBB is the car ahead of AAA
+    covered = S.simulate(cars, 20, 50, m, t, n=600, seed=3, events=False, respond_to=1).table().set_index("code")
+    assert calm.loc["AAA", "p_win"] > 0.8  # the undercut works when nobody reacts
+    assert covered.loc["AAA", "p_win"] < calm.loc["AAA", "p_win"] - 0.3

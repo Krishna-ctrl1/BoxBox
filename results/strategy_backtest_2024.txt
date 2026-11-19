@@ -1,135 +1,324 @@
-  Sakhir             VER P1: team L37 S -> P2.87 | BoxBox L32 H -> P2.51, with SC rule P2.51
-  Sakhir             PER P2: team L36 S -> P4.97 | BoxBox L33 H -> P3.42, with SC rule P3.36
-  Sakhir             SAI P3: team L35 H -> P3.51 | BoxBox L29 H -> P3.35, with SC rule P3.35
-  Sakhir             RUS P4: team L31 H -> P5.39 | BoxBox L34 H -> P5.39, with SC rule P5.06
-  Sakhir             LEC P5: team L34 H -> P6.36 | BoxBox L33 H -> P6.29, with SC rule P5.83
-  Sakhir             NOR P6: team L33 H -> P5.49 | BoxBox L33 H -> P5.49, with SC rule P5.20
-  Sakhir             PIA P7: team L34 H -> P7.39 | BoxBox L31 H -> P7.32, with SC rule P7.07
-  Sakhir             HAM P8: team L33 H -> P8.18 | BoxBox L27 H -> P7.88, with SC rule P7.88
-  Sakhir             ALO P9: team L41 H -> P9.88 | BoxBox L27 H -> P9.04, with SC rule P9.04
-  Sakhir             ZHO P10: team L28 H -> P11.74 | BoxBox L30 H -> P11.69, with SC rule P11.54
-  Jeddah             NOR P4: team L37 S -> P6.20 | BoxBox L34 S -> P6.06, with SC rule P5.77
-  Jeddah             HAM P7: team L36 S -> P8.63 | BoxBox L33 S -> P8.56, with SC rule P8.23
-  Melbourne          SAI P3: team L41 H -> P3.56 | BoxBox L33 H -> P3.20, with SC rule P3.10
-  Melbourne          LEC P4: team L34 H -> P4.13 | BoxBox L27 H -> P4.01, with SC rule P3.87
-  Melbourne          PIA P5: team L39 H -> P5.50 | BoxBox L30 H -> P4.88, with SC rule P4.72
-  Melbourne          NOR P6: team L40 H -> P5.56 | BoxBox L35 H -> P4.87, with SC rule P4.51
-  Melbourne          ALO P7: team L41 H -> P7.54 | BoxBox L33 H -> P6.45, with SC rule P6.01
-  Melbourne          RUS P8: team L45 H -> P11.42 | BoxBox L31 H -> P8.44, with SC rule P8.14
-  Melbourne          PER P9: team L35 H -> P7.46 | BoxBox L33 H -> P7.40, with SC rule P7.12
-  Melbourne          STR P10: team L37 H -> P9.17 | BoxBox L31 H -> P8.37, with SC rule P8.12
-  Suzuka             LEC P1: team L26 H -> P6.36 | BoxBox L22 H -> P6.21, with SC rule P6.21
-  Suzuka             VER P2: team L34 H -> P2.60 | BoxBox L30 H -> P2.50, with SC rule P2.46
-  Suzuka             NOR P4: team L26 H -> P4.32 | BoxBox L31 H -> P4.15, with SC rule P4.05
-  Suzuka             PER P5: team L33 H -> P3.86 | BoxBox L30 H -> P3.82, with SC rule P3.70
-  Suzuka             SAI P7: team L36 H -> P5.73 | BoxBox L31 H -> P5.39, with SC rule P5.05
-  Suzuka             ALO P8: team L33 H -> P4.62 | BoxBox L31 H -> P4.55, with SC rule P4.30
-  Suzuka             PIA P9: team L32 H -> P6.94 | BoxBox L22 H -> P7.00, with SC rule P7.00
-  Suzuka             MAG P10: team L22 H -> P13.16 | BoxBox L22 H -> P13.16, with SC rule P13.16
-  Shanghai           NOR P1: team L22 H -> P3.87 | BoxBox L23 H -> P3.86, with SC rule P3.83
-  Shanghai           VER P2: team L23 H -> P2.53 | BoxBox L21 H -> P2.52, with SC rule P2.52
-  Shanghai           LEC P3: team L21 H -> P5.09 | BoxBox L25 H -> P5.10, with SC rule P5.00
-  Shanghai           PER P4: team L23 H -> P3.89 | BoxBox L31 H -> P3.58, with SC rule P3.38
-  Shanghai           RUS P6: team L23 H -> P7.13 | BoxBox L29 H -> P6.90, with SC rule P6.65
-  Shanghai           PIA P7: team L24 H -> P6.90 | BoxBox L33 H -> P6.54, with SC rule P6.33
-  Shanghai           HUL P10: team L23 H -> P10.37 | BoxBox L27 H -> P9.95, with SC rule P9.74
-  Miami              VER P1: team L23 H -> P2.80 | BoxBox L26 H -> P2.76, with SC rule P2.75
-  Miami              SAI P3: team L27 H -> P3.91 | BoxBox L28 H -> P3.92, with SC rule P3.84
-  Miami              NOR P5: team L29 H -> P4.84 | BoxBox L24 H -> P4.72, with SC rule P4.67
-  Miami              HAM P6: team L26 M -> P7.71 | BoxBox L32 M -> P7.57, with SC rule P7.52
-  Miami              RUS P7: team L24 H -> P7.71 | BoxBox L22 H -> P7.67, with SC rule P7.63
-  Miami              TSU P8: team L28 H -> P10.03 | BoxBox L21 H -> P9.67, with SC rule P9.63
-  Miami              PER P9: team L28 M -> P6.66 | BoxBox LNone s -> P5.72, with SC rule P5.72
-  Miami              OCO P10: team L22 H -> P10.65 | BoxBox L21 H -> P10.77, with SC rule P10.73
-  Imola              VER P1: team L24 H -> P3.03 | BoxBox L23 H -> P3.03, with SC rule P3.01
-  Imola              NOR P2: team L22 H -> P4.01 | BoxBox L27 H -> P3.87, with SC rule P3.81
-  Imola              LEC P3: team L25 H -> P4.16 | BoxBox L25 H -> P4.16, with SC rule P4.12
-  Imola              SAI P4: team L27 H -> P5.06 | BoxBox L24 H -> P5.10, with SC rule P5.05
-  Imola              PIA P5: team L23 H -> P5.94 | BoxBox L29 H -> P5.75, with SC rule P5.62
-  Imola              HAM P6: team L27 H -> P6.53 | BoxBox L32 H -> P6.47, with SC rule P6.26
-  Imola              RUS P7: team L52 M -> P10.49 | BoxBox L35 H -> P7.36, with SC rule P7.03
-  Imola              PER P8: team L37 M -> P8.06 | BoxBox L34 M -> P7.95, with SC rule P7.85
-  Imola              STR P9: team L37 H -> P9.93 | BoxBox L25 H -> P8.80, with SC rule P8.77
-  Imola              OCO P10: team L25 H -> P11.06 | BoxBox L29 H -> P10.94, with SC rule P10.73
-  Monte Carlo        VER P6: team L52 H -> P6.48 | BoxBox L35 H -> P6.94, with SC rule P6.85
-  Monte Carlo        HAM P7: team L51 H -> P7.15 | BoxBox L35 H -> P7.53, with SC rule P7.45
-  Hungaroring        LEC P1: team L40 M -> P5.85 | BoxBox L32 H -> P5.21, with SC rule P5.15
-  Hungaroring        PIA P2: team L47 M -> P3.43 | BoxBox L39 H -> P3.02, with SC rule P3.00
-  Hungaroring        NOR P3: team L45 M -> P4.43 | BoxBox L37 H -> P3.64, with SC rule P3.62
-  Hungaroring        HAM P4: team L40 H -> P4.00 | BoxBox L37 H -> P3.93, with SC rule P3.80
-  Hungaroring        VER P5: team L49 M -> P5.61 | BoxBox L44 H -> P5.07, with SC rule P4.82
-  Hungaroring        TSU P6: team L29 H -> P7.25 | BoxBox L32 H -> P7.27, with SC rule P7.23
-  Hungaroring        SAI P9: team L47 M -> P7.32 | BoxBox L34 H -> P6.84, with SC rule P6.79
-  Hungaroring        GAS P10: team L28 M -> P15.39 | BoxBox L33 M -> P15.52, with SC rule P15.52
-  Spa-Francorchamps  HAM P3: team L26 H -> P2.75 | BoxBox LNone s -> P2.35, with SC rule P2.35
-  Spa-Francorchamps  LEC P4: team L25 H -> P3.76 | BoxBox LNone s -> P2.32, with SC rule P2.32
-  Spa-Francorchamps  PIA P5: team L30 H -> P4.97 | BoxBox LNone s -> P2.65, with SC rule P2.65
-  Spa-Francorchamps  VER P8: team L28 M -> P6.87 | BoxBox LNone s -> P3.56, with SC rule P3.56
-  Spa-Francorchamps  MAG P9: team L17 H -> P13.75 | BoxBox L15 H -> P13.04, with SC rule P13.04
-  Spa-Francorchamps  TSU P10: team L15 H -> P14.45 | BoxBox L15 H -> P14.45, with SC rule P14.45
-  Zandvoort          NOR P1: team L28 H -> P3.34 | BoxBox L30 H -> P3.34, with SC rule P3.29
-  Zandvoort          VER P2: team L27 H -> P3.93 | BoxBox L32 H -> P3.84, with SC rule P3.75
-  Zandvoort          PIA P4: team L33 H -> P4.64 | BoxBox L32 H -> P4.67, with SC rule P4.50
-  Zandvoort          PER P6: team L29 H -> P5.82 | BoxBox L30 H -> P5.68, with SC rule P5.65
-  Zandvoort          SAI P7: team L30 H -> P6.32 | BoxBox L33 H -> P6.30, with SC rule P6.21
-  Zandvoort          GAS P8: team L32 H -> P7.88 | BoxBox L34 H -> P7.80, with SC rule P7.60
-  Zandvoort          ALO P9: team L31 H -> P9.66 | BoxBox L34 H -> P9.69, with SC rule P9.38
-  Zandvoort          STR P10: team L30 H -> P10.59 | BoxBox L33 H -> P10.45, with SC rule P10.25
-  Monza              SAI P1: team L19 H -> P4.34 | BoxBox L21 H -> P4.14, with SC rule P4.07
-  Monza              PIA P4: team L38 H -> P4.07 | BoxBox LNone s -> P2.55, with SC rule P2.55
-  Monza              NOR P5: team L32 H -> P4.68 | BoxBox L31 H -> P4.68, with SC rule P4.46
-  Monza              OCO P8: team L31 M -> P14.63 | BoxBox L41 S -> P14.39, with SC rule P13.62
-  Monza              HAM P10: team L37 H -> P6.74 | BoxBox LNone s -> P5.37, with SC rule P5.37
-  Baku               ALB P4: team L31 M -> P8.55 | BoxBox L33 M -> P8.67, with SC rule P8.67
-  Baku               NOR P6: team L37 M -> P9.06 | BoxBox L33 M -> P8.62, with SC rule P8.62
-  Baku               VER P7: team L49 S -> P8.58 | BoxBox LNone s -> P5.57, with SC rule P5.57
-  Baku               GAS P10: team L50 S -> P14.80 | BoxBox L33 M -> P13.25, with SC rule P13.25
-  Singapore          NOR P1: team L30 H -> P3.12 | BoxBox L23 H -> P3.00, with SC rule P2.99
-  Singapore          VER P2: team L29 H -> P4.11 | BoxBox L26 H -> P4.02, with SC rule P3.95
-  Singapore          RUS P3: team L27 H -> P5.00 | BoxBox L26 H -> P4.96, with SC rule P4.87
-  Singapore          PIA P4: team L38 H -> P6.00 | BoxBox L28 H -> P5.08, with SC rule P4.79
-  Singapore          HUL P5: team L29 H -> P7.63 | BoxBox L29 H -> P7.63, with SC rule P7.22
-  Singapore          ALO P6: team L25 H -> P7.84 | BoxBox L30 H -> P7.49, with SC rule P6.92
-  Singapore          LEC P7: team L36 H -> P8.40 | BoxBox L28 H -> P7.95, with SC rule P7.54
-  Singapore          COL P8: team L29 H -> P8.70 | BoxBox L28 H -> P8.78, with SC rule P8.38
-  Singapore          PER P9: team L28 H -> P10.27 | BoxBox L31 H -> P10.29, with SC rule P9.59
-  Singapore          TSU P10: team L33 S -> P10.28 | BoxBox L31 H -> P11.24, with SC rule P10.56
-  Austin             LEC P2: team L26 H -> P3.58 | BoxBox L21 H -> P3.56, with SC rule P3.56
-  Austin             VER P3: team L25 H -> P4.41 | BoxBox L21 H -> P4.32, with SC rule P4.32
-  Austin             SAI P4: team L21 H -> P4.75 | BoxBox L21 H -> P4.75, with SC rule P4.75
-  Austin             NOR P5: team L31 H -> P5.63 | BoxBox L21 H -> P5.60, with SC rule P5.60
-  Austin             PIA P6: team L32 H -> P6.32 | BoxBox L21 H -> P6.12, with SC rule P6.12
-  Austin             PER P8: team L26 H -> P7.97 | BoxBox L26 H -> P7.97, with SC rule P7.95
-  Austin             HUL P10: team L27 H -> P8.74 | BoxBox L21 H -> P8.52, with SC rule P8.52
-  Mexico City        SAI P1: team L32 H -> P2.73 | BoxBox L32 H -> P2.73, with SC rule P2.73
-  Mexico City        VER P3: team L26 H -> P3.69 | BoxBox L32 H -> P3.63, with SC rule P3.63
-  Mexico City        NOR P4: team L30 H -> P4.30 | BoxBox L33 H -> P4.31, with SC rule P4.26
-  Mexico City        RUS P5: team L31 H -> P5.97 | BoxBox L36 H -> P6.01, with SC rule P5.90
-  Mexico City        HAM P6: team L28 H -> P6.41 | BoxBox L32 H -> P6.20, with SC rule P6.20
-  Mexico City        MAG P7: team L30 H -> P7.66 | BoxBox L37 H -> P7.60, with SC rule P7.45
-  Mexico City        HUL P8: team L29 H -> P8.81 | BoxBox L35 H -> P8.67, with SC rule P8.58
-  Mexico City        GAS P9: team L28 H -> P9.78 | BoxBox L36 H -> P9.45, with SC rule P9.34
-  Las Vegas          RUS P1: team L32 H -> P2.77 | BoxBox L23 H -> P2.51, with SC rule P2.48
-  Las Vegas          VER P2: team L27 H -> P3.70 | BoxBox L26 H -> P3.68, with SC rule P3.49
-  Las Vegas          SAI P3: team L28 H -> P5.04 | BoxBox L25 H -> P4.88, with SC rule P4.64
-  Las Vegas          LEC P5: team L31 H -> P6.31 | BoxBox L25 H -> P5.95, with SC rule P5.50
-  Las Vegas          HAM P6: team L27 H -> P4.62 | BoxBox L27 H -> P4.62, with SC rule P4.25
-  Las Vegas          TSU P8: team L29 H -> P9.37 | BoxBox L29 H -> P9.37, with SC rule P8.56
-  Las Vegas          MAG P9: team L17 H -> P14.23 | BoxBox L21 H -> P14.10, with SC rule P13.98
-  Las Vegas          PIA P10: team L25 H -> P7.49 | BoxBox L26 H -> P7.41, with SC rule P7.07
-  Yas Marina Circuit NOR P1: team L26 H -> P2.55 | BoxBox L23 H -> P2.54, with SC rule P2.52
-  Yas Marina Circuit SAI P2: team L25 H -> P3.37 | BoxBox L20 H -> P3.27, with SC rule P3.27
-  Yas Marina Circuit RUS P3: team L26 H -> P5.28 | BoxBox L20 H -> P4.82, with SC rule P4.82
-  Yas Marina Circuit LEC P4: team L20 H -> P4.19 | BoxBox L20 H -> P4.19, with SC rule P4.19
-  Yas Marina Circuit VER P5: team L29 H -> P6.82 | BoxBox L20 H -> P6.13, with SC rule P6.13
-  Yas Marina Circuit HAM P6: team L34 M -> P11.01 | BoxBox L48 S -> P10.38, with SC rule P9.80
-  Yas Marina Circuit TSU P10: team L22 H -> P12.66 | BoxBox L20 H -> P12.55, with SC rule P12.55
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Sakhir             VER P1: team L37 S -> P3.12 | BoxBox L31 H -> P2.71, with SC rule P2.71
+  Sakhir             PER P2: team L36 S -> P5.26 | BoxBox L32 H -> P3.57, with SC rule P3.50
+  Sakhir             SAI P3: team L35 H -> P3.54 | BoxBox L29 H -> P3.39, with SC rule P3.37
+  Sakhir             RUS P4: team L31 H -> P5.43 | BoxBox L32 H -> P5.38, with SC rule P5.18
+  Sakhir             LEC P5: team L34 H -> P6.32 | BoxBox L33 H -> P6.22, with SC rule P5.90
+  Sakhir             NOR P6: team L33 H -> P5.50 | BoxBox L32 H -> P5.51, with SC rule P5.31
+  Sakhir             PIA P7: team L34 H -> P7.27 | BoxBox L32 H -> P7.18, with SC rule P6.87
+  Sakhir             HAM P8: team L33 H -> P8.41 | BoxBox L27 H -> P8.17, with SC rule P8.16
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Sakhir             ALO P9: team L41 H -> P9.79 | BoxBox L27 H -> P8.93, with SC rule P8.93
+  Sakhir             ZHO P10: team L28 H -> P11.77 | BoxBox L30 H -> P11.74, with SC rule P11.61
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Jeddah             NOR P4: team L37 S -> P6.37 | BoxBox L32 S -> P6.18, with SC rule P5.97
+  Jeddah             HAM P7: team L36 S -> P8.51 | BoxBox L32 S -> P8.41, with SC rule P8.06
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Melbourne          SAI P3: team L41 H -> P3.65 | BoxBox LNone s -> P3.30, with SC rule P3.21
+  Melbourne          LEC P4: team L34 H -> P4.19 | BoxBox L27 H -> P4.16, with SC rule P3.92
+  Melbourne          PIA P5: team L39 H -> P5.41 | BoxBox L30 H -> P4.93, with SC rule P4.57
+  Melbourne          NOR P6: team L40 H -> P5.34 | BoxBox L32 H -> P4.88, with SC rule P4.53
+  Melbourne          ALO P7: team L41 H -> P7.44 | BoxBox L32 H -> P6.57, with SC rule P6.19
+  Melbourne          RUS P8: team L45 H -> P11.46 | BoxBox L33 H -> P8.66, with SC rule P8.06
+  Melbourne          PER P9: team L35 H -> P7.41 | BoxBox L32 H -> P7.43, with SC rule P7.21
+  Melbourne          STR P10: team L37 H -> P9.13 | BoxBox L29 H -> P8.45, with SC rule P8.29
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Suzuka             LEC P1: team L26 H -> P6.26 | BoxBox L23 H -> P6.12, with SC rule P6.06
+  Suzuka             VER P2: team L34 H -> P2.33 | BoxBox L28 H -> P2.24, with SC rule P2.23
+  Suzuka             NOR P4: team L26 H -> P4.42 | BoxBox L30 H -> P4.22, with SC rule P4.16
+  Suzuka             PER P5: team L33 H -> P3.55 | BoxBox L28 H -> P3.46, with SC rule P3.42
+  Suzuka             SAI P7: team L36 H -> P5.72 | BoxBox L30 H -> P5.29, with SC rule P5.07
+  Suzuka             ALO P8: team L33 H -> P4.65 | BoxBox L31 H -> P4.57, with SC rule P4.37
+  Suzuka             PIA P9: team L32 H -> P7.33 | BoxBox L31 H -> P7.32, with SC rule P7.23
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Suzuka             MAG P10: team L22 H -> P13.32 | BoxBox L22 H -> P13.32, with SC rule P13.32
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Shanghai           LEC P3: team L21 H -> P5.07 | BoxBox L23 H -> P5.04, with SC rule P5.03
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Miami              SAI P3: team L27 H -> P3.79 | BoxBox L27 H -> P3.79, with SC rule P3.75
+  Miami              HAM P6: team L26 M -> P7.76 | BoxBox L31 M -> P7.67, with SC rule P7.58
+  Miami              OCO P10: team L22 H -> P10.77 | BoxBox L23 H -> P10.75, with SC rule P10.67
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Imola              VER P1: team L24 H -> P2.69 | BoxBox L24 H -> P2.69, with SC rule P2.67
+  Imola              NOR P2: team L22 H -> P4.08 | BoxBox L27 H -> P3.90, with SC rule P3.83
+  Imola              LEC P3: team L25 H -> P4.04 | BoxBox L24 H -> P4.04, with SC rule P4.00
+  Imola              SAI P4: team L27 H -> P5.37 | BoxBox L25 H -> P5.38, with SC rule P5.34
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Imola              PIA P5: team L23 H -> P5.89 | BoxBox L27 H -> P5.76, with SC rule P5.76
+  Imola              HAM P6: team L27 H -> P6.67 | BoxBox L32 H -> P6.57, with SC rule P6.41
+  Imola              RUS P7: team L52 M -> P10.20 | BoxBox L33 H -> P7.01, with SC rule P6.79
+  Imola              PER P8: team L37 M -> P8.44 | BoxBox L32 M -> P8.21, with SC rule P8.18
+  Imola              STR P9: team L37 H -> P9.87 | BoxBox L24 H -> P8.81, with SC rule P8.80
+  Imola              OCO P10: team L25 H -> P11.00 | BoxBox L29 H -> P10.84, with SC rule P10.75
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Monte Carlo        VER P6: team L52 H -> P6.63 | BoxBox L35 H -> P7.09, with SC rule P7.04
+  Monte Carlo        HAM P7: team L51 H -> P7.38 | BoxBox L35 H -> P7.74, with SC rule P7.67
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Hungaroring        LEC P1: team L40 M -> P5.80 | BoxBox L30 H -> P5.08, with SC rule P5.08
+  Hungaroring        PIA P2: team L47 M -> P3.29 | BoxBox L39 H -> P2.85, with SC rule P2.84
+  Hungaroring        NOR P3: team L45 M -> P4.28 | BoxBox L39 H -> P3.55, with SC rule P3.51
+  Hungaroring        HAM P4: team L40 H -> P3.98 | BoxBox L39 H -> P3.99, with SC rule P3.85
+  Hungaroring        VER P5: team L49 M -> P5.31 | BoxBox L38 H -> P4.66, with SC rule P4.49
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Hungaroring        TSU P6: team L29 H -> P7.63 | BoxBox L30 H -> P7.64, with SC rule P7.64
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Hungaroring        SAI P9: team L47 M -> P7.10 | BoxBox L30 H -> P6.49, with SC rule P6.49
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Hungaroring        GAS P10: team L28 M -> P15.33 | BoxBox L33 M -> P15.40, with SC rule P15.40
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Spa-Francorchamps  HAM P3: team L26 H -> P2.62 | BoxBox LNone s -> P2.23, with SC rule P2.23
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Spa-Francorchamps  LEC P4: team L25 H -> P3.94 | BoxBox LNone s -> P2.56, with SC rule P2.56
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Spa-Francorchamps  PIA P5: team L30 H -> P5.02 | BoxBox LNone s -> P2.55, with SC rule P2.55
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Spa-Francorchamps  VER P8: team L28 M -> P7.27 | BoxBox LNone s -> P4.04, with SC rule P4.04
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Spa-Francorchamps  MAG P9: team L17 H -> P13.82 | BoxBox L15 H -> P13.06, with SC rule P13.06
+  Spa-Francorchamps  TSU P10: team L15 H -> P14.54 | BoxBox L15 H -> P14.54, with SC rule P14.54
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Zandvoort          NOR P1: team L28 H -> P2.96 | BoxBox L30 H -> P2.96, with SC rule P2.90
+  Zandvoort          VER P2: team L27 H -> P3.94 | BoxBox L31 H -> P3.88, with SC rule P3.81
+  Zandvoort          PIA P4: team L33 H -> P4.85 | BoxBox L30 H -> P4.81, with SC rule P4.75
+  Zandvoort          PER P6: team L29 H -> P6.06 | BoxBox L32 H -> P6.03, with SC rule P5.93
+  Zandvoort          SAI P7: team L30 H -> P6.05 | BoxBox L30 H -> P6.05, with SC rule P6.03
+  Zandvoort          GAS P8: team L32 H -> P8.22 | BoxBox L31 H -> P8.22, with SC rule P8.11
+  Zandvoort          ALO P9: team L31 H -> P9.72 | BoxBox L33 H -> P9.60, with SC rule P9.37
+  Zandvoort          STR P10: team L30 H -> P10.38 | BoxBox L32 H -> P10.32, with SC rule P10.15
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Monza              SAI P1: team L19 H -> P4.11 | BoxBox L22 H -> P3.92, with SC rule P3.87
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Monza              PIA P4: team L38 H -> P4.03 | BoxBox LNone s -> P2.42, with SC rule P2.42
+  Monza              NOR P5: team L32 H -> P4.59 | BoxBox L31 H -> P4.58, with SC rule P4.45
+  Monza              OCO P8: team L31 M -> P14.72 | BoxBox L41 S -> P14.56, with SC rule P13.64
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Monza              HAM P10: team L37 H -> P6.96 | BoxBox LNone s -> P5.62, with SC rule P5.62
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Baku               ALB P4: team L31 M -> P8.59 | BoxBox L33 M -> P8.78, with SC rule P8.78
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Baku               NOR P6: team L37 M -> P9.25 | BoxBox L33 M -> P8.82, with SC rule P8.82
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Baku               VER P7: team L49 S -> P8.32 | BoxBox LNone s -> P5.45, with SC rule P5.45
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Baku               GAS P10: team L50 S -> P14.71 | BoxBox L33 M -> P13.38, with SC rule P13.38
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Singapore          NOR P1: team L30 H -> P3.03 | BoxBox L21 H -> P2.96, with SC rule P2.96
+  Singapore          VER P2: team L29 H -> P3.47 | BoxBox L25 H -> P3.31, with SC rule P3.26
+  Singapore          RUS P3: team L27 H -> P4.54 | BoxBox L28 H -> P4.51, with SC rule P4.34
+  Singapore          PIA P4: team L38 H -> P5.88 | BoxBox L27 H -> P4.83, with SC rule P4.64
+  Singapore          HUL P5: team L29 H -> P7.69 | BoxBox L27 H -> P7.74, with SC rule P7.52
+  Singapore          ALO P6: team L25 H -> P7.97 | BoxBox L30 H -> P7.66, with SC rule P7.16
+  Singapore          LEC P7: team L36 H -> P8.50 | BoxBox L27 H -> P7.92, with SC rule P7.65
+  Singapore          COL P8: team L29 H -> P8.90 | BoxBox L31 H -> P8.86, with SC rule P8.26
+  Singapore          PER P9: team L28 H -> P10.13 | BoxBox L31 H -> P10.07, with SC rule P9.45
+  Singapore          TSU P10: team L33 S -> P10.56 | BoxBox L32 H -> P11.44, with SC rule P10.79
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Austin             LEC P2: team L26 H -> P3.26 | BoxBox L21 H -> P3.24, with SC rule P3.24
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Austin             VER P3: team L25 H -> P4.38 | BoxBox L21 H -> P4.28, with SC rule P4.28
+  Austin             SAI P4: team L21 H -> P4.94 | BoxBox L23 H -> P4.91, with SC rule P4.91
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Austin             NOR P5: team L31 H -> P5.56 | BoxBox L21 H -> P5.49, with SC rule P5.49
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Austin             PIA P6: team L32 H -> P6.39 | BoxBox L21 H -> P6.20, with SC rule P6.20
+  Austin             PER P8: team L26 H -> P7.72 | BoxBox L24 H -> P7.71, with SC rule P7.68
+  Austin             HUL P10: team L27 H -> P8.80 | BoxBox L23 H -> P8.72, with SC rule P8.71
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Mexico City        SAI P1: team L32 H -> P2.65 | BoxBox L32 H -> P2.65, with SC rule P2.65
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Mexico City        VER P3: team L26 H -> P3.92 | BoxBox L32 H -> P3.87, with SC rule P3.87
+  Mexico City        NOR P4: team L30 H -> P4.36 | BoxBox L33 H -> P4.33, with SC rule P4.30
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Mexico City        RUS P5: team L31 H -> P5.71 | BoxBox L32 H -> P5.77, with SC rule P5.77
+  Mexico City        HAM P6: team L28 H -> P6.29 | BoxBox L36 H -> P6.24, with SC rule P6.15
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Mexico City        MAG P7: team L30 H -> P7.71 | BoxBox L32 H -> P7.70, with SC rule P7.70
+  Mexico City        HUL P8: team L29 H -> P8.70 | BoxBox L36 H -> P8.63, with SC rule P8.52
+  Mexico City        GAS P9: team L28 H -> P9.89 | BoxBox L34 H -> P9.54, with SC rule P9.49
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Las Vegas          RUS P1: team L32 H -> P2.74 | BoxBox L24 H -> P2.38, with SC rule P2.34
+  Las Vegas          VER P2: team L27 H -> P3.57 | BoxBox L27 H -> P3.57, with SC rule P3.38
+  Las Vegas          SAI P3: team L28 H -> P4.62 | BoxBox L24 H -> P4.55, with SC rule P4.30
+  Las Vegas          LEC P5: team L31 H -> P6.22 | BoxBox L23 H -> P5.79, with SC rule P5.48
+  Las Vegas          HAM P6: team L27 H -> P4.44 | BoxBox L26 H -> P4.37, with SC rule P4.05
+  Las Vegas          TSU P8: team L29 H -> P9.09 | BoxBox L24 H -> P9.03, with SC rule P8.70
+  Las Vegas          MAG P9: team L17 H -> P14.45 | BoxBox L21 H -> P14.40, with SC rule P14.37
+  Las Vegas          PIA P10: team L25 H -> P7.47 | BoxBox L26 H -> P7.44, with SC rule P6.99
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Yas Marina Circuit NOR P1: team L26 H -> P2.51 | BoxBox L22 H -> P2.49, with SC rule P2.49
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Yas Marina Circuit SAI P2: team L25 H -> P3.71 | BoxBox L20 H -> P3.62, with SC rule P3.62
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Yas Marina Circuit RUS P3: team L26 H -> P5.05 | BoxBox L20 H -> P4.60, with SC rule P4.60
+  Yas Marina Circuit LEC P4: team L20 H -> P4.21 | BoxBox L20 H -> P4.21, with SC rule P4.21
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:215: RuntimeWarning: invalid value encountered in subtract
+  ahead_gap = np.where(others <= my[:, None], my[:, None] - others, np.inf)
+/Users/krishna__0605/Projects/BoxBox/src/boxbox/simulate.py:216: RuntimeWarning: invalid value encountered in subtract
+  behind_gap = np.where(others > my[:, None], others - my[:, None], np.inf)
+  Yas Marina Circuit VER P5: team L29 H -> P6.88 | BoxBox L20 H -> P6.23, with SC rule P6.23
+  Yas Marina Circuit HAM P6: team L34 M -> P11.01 | BoxBox L47 S -> P10.41, with SC rule P9.85
+  Yas Marina Circuit TSU P10: team L22 H -> P12.73 | BoxBox L20 H -> P12.64, with SC rule P12.64
 
-126 pit decisions across 18 races (from 1/3 distance, 800 fresh races each).
-Expected finish: team 6.726 | BoxBox fixed 6.387 | BoxBox + SC rule 6.246
-Positions gained vs team: fixed +0.340, with SC rule +0.481 per decision
-BoxBox at least as good as the team in 94% of decisions; clearly better (>0.1 place) in 75%
-Option value of the SC rule: +0.141 positions on average
-Pit lap vs team: median 4 laps apart, within 3 laps in 46% of decisions
-Same tyre as the team: 90%
-BoxBox said 'no more stops' in 6% of decisions (team stopped in all of them)
+115 pit decisions across 18 races (from 1/3 distance, 800 fresh races each).
+Expected finish: team 6.779 | BoxBox fixed 6.435 | BoxBox + SC rule 6.310
+Positions gained vs team: fixed +0.344, with SC rule +0.469 per decision
+BoxBox at least as good as the team in 94% of decisions; clearly better (>0.1 place) in 71%
+Option value of the SC rule: +0.125 positions on average
+Pit lap vs team: median 4 laps apart, within 3 laps in 43% of decisions
+Same tyre as the team: 89%
+BoxBox said 'no more stops' in 7% of decisions (team stopped in all of them)

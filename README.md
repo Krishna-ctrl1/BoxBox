@@ -17,7 +17,8 @@ Deciding when to pit is an *optimal stopping* problem: the same maths banks use 
 | 2 | Monte Carlo race simulator: safety cars/VSCs (Gamma-Poisson), overtaking (Beta-Binomial), DNFs, tyre-wear uncertainty | ✅ |
 | 2 | Simulator backtest: 1.57 places error vs 1.89, favourite wins 91% vs 79%, well calibrated | ✅ |
 | 3 | Optimal pit engine: Least-Squares Monte Carlo (Longstaff–Schwartz), plan + safety-car rule, option value | ✅ |
-| 3 | Backtest vs real 2024 team calls: +0.49 places per decision in our simulator; same tyre 89% | ✅ |
+| 3 | Rivals respond: the car ahead covers an undercut at the rate measured from 2023 (+22%) | ✅ |
+| 3 | Backtest vs real 2024 team calls, rivals covering: +0.47 places per decision in our simulator; same tyre 89% | ✅ |
 | 3 | Undercut / overcut as a two-player game | ⏳ |
 | 4 | Season backtest: positions gained vs the teams' real calls | ⏳ |
 | 5 | Website: race replay, pit windows, what-if sliders | ⏳ |
@@ -92,20 +93,26 @@ Pitting is an **American option**: on any lap the team may "exercise" (box) or w
 
 **A result worth knowing:** the textbook LSM, regressing on every visible feature on every lap, did *worse* than a fixed plan. On green-flag laps, pitting one lap earlier or later changes the result by ~0.02 places, below the regression noise, so the rule flipped at random. A safety car changes the cost of a stop by ~10 s: a signal strong enough to learn. So the decision state is "neutralised this lap or not".
 
+### Rivals respond: covering the undercut
+
+If a car pits first on fresh tyres, it can jump the car ahead (the **undercut**), unless that car **covers** by pitting the next lap. Measured from every 2023 dry race: when a car pits under green, the car directly ahead (within 3 s) pits within 2 laps **31%** of the time, against **11%** on an ordinary lap, an extra **22%** caused by the reaction; the car directly behind reacts ~11% extra. In the simulator, when our driver pits under green, those rivals bring a stop they had planned within the next 12 laps forward to the next lap with those probabilities, separately in every simulated race. In a hand-made undercut, the attacker wins 100% if nobody reacts, 90% at the real cover rate, 45% if the rival always covers. This is a leader–follower response model (rivals behave as real teams did), not a full Nash equilibrium.
+
 ### Backtest vs the real teams (2024)
 
-At 1/3 distance in every dry 2024 race, each top-10 driver who really made one more stop: the team's real call vs BoxBox, on the same 800 fresh simulated races. Team stops made under a real safety car are excluded (the simulator would replay those laps as green and unfairly punish the team).
+At 1/3 distance in every dry 2024 race, each top-10 driver who really made one more stop under green: the team's real call vs BoxBox, on the same 800 fresh simulated races, **with rivals covering in every arm**. Team stops made under a real safety car are left out (the simulator would replay those laps as green and unfairly punish the team).
 
-| 115 decisions, 18 races | Expected finish |
-|---|---|
-| Team's real call | 6.79 |
-| BoxBox fixed plan | 6.44 |
-| **BoxBox plan + safety-car rule** | **6.30** |
+| 115 decisions, 18 races | Rivals never react | **Rivals cover** |
+|---|---|---|
+| Team's real call | 6.79 | **6.78** |
+| BoxBox fixed plan | 6.44 | **6.44** |
+| BoxBox plan + safety-car rule | 6.30 | **6.31** |
+| BoxBox gain per decision | +0.49 | **+0.47** |
 
-- BoxBox gains **+0.49 places per decision** (+0.35 from the plan, +0.15 from the safety-car rule); at least as good as the team in 94% of decisions.
-- Picks the **same tyre as the team 89%** of the time; median pit lap 4 laps from the team's; both pit a median 9 laps after the decision point.
+- With covering rivals BoxBox still gains **+0.47 places per decision** (+0.34 from the plan, +0.13 from the safety-car rule) and is at least as good as the team in 94% of decisions. The gain barely moved, so it was **not** coming from free undercuts; covering hurt the teams' calls as much as BoxBox's.
+- The advice did adapt: BoxBox's pit lap changed in 59% of decisions (median one lap) once rivals could cover.
+- Picks the **same tyre as the team 89%** of the time; median pit lap 4 laps from the team's.
 
-**Read this carefully.** "Better" here means *better inside BoxBox's simulator*. Rivals in the simulation keep their own strategies and do not respond to our stop, which flatters early stops (an undercut nobody covers). Teams also see things we cannot (tyre temperatures, damage, fuel, radio). Agreement on tyre choice and timing is the sanity check; the gain figure is an upper bound until rivals respond (next phase). Full output: [`results/strategy_backtest_2024.txt`](results/strategy_backtest_2024.txt).
+**Read this carefully.** "Better" means *better inside BoxBox's simulator*. Teams see things we cannot (tyre temperatures, damage, fuel, radio), and rivals here respond with an average historical rate rather than optimising against us. Agreement on tyre choice and timing is the sanity check. Full output: [`results/strategy_backtest_2024.txt`](results/strategy_backtest_2024.txt) (rivals covering) and [`results/strategy_backtest_2024_no_response.txt`](results/strategy_backtest_2024_no_response.txt).
 
 ```bash
 python -m boxbox pit 2024 "Yas Marina" VER --from-lap 12   # best plan, pit window, safety-car rule, option value
